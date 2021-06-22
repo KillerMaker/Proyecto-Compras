@@ -1,0 +1,74 @@
+﻿@model WebApplication4.Models.CEmpleado
+
+@{
+    ViewData["Title"] = "InsertarOpen";
+}
+
+<h1>InsertarOpen</h1>
+
+<h4>CEmpleado</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="InsertarSend" method="post" >
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="cedula" class="control-label"></label>
+                <input asp-for="cedula" class="form-control" />
+                <span asp-validation-for="cedula" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="nombre" class="control-label"></label>
+                <input asp-for="nombre" class="form-control" />
+                <span asp-validation-for="nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="departamento" class="control-label"></label>
+                <input asp-for="departamento" class="form-control" />
+                <span asp-validation-for="departamento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="estado" class="control-label"></label>
+                <input asp-for="estado" class="form-control" />
+                <span asp-validation-for="estado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="SelectShow">Back to List</a>
+</div>
+
+@*<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function(){
+        $("form").submit(function () {
+            var message = {
+                Cedula: $("#Cedula").val(),
+                Nombre: $("#Nombre").val(),
+                Departamento: $("#Departamento").val(),
+                Estado: $("#Estado").val()
+            }
+
+            $.ajax({
+                url: "/Empleado/Insertar",
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(message),
+                success: function () {
+                    console.log("success")
+                },
+
+            });
+        })
+    });
+</script>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
