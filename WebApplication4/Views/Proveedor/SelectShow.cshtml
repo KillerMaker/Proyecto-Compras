@@ -1,0 +1,52 @@
+﻿@model IEnumerable<WebApplication4.Models.CProveedor>
+
+@{
+    ViewData["Title"] = "SelectShow";
+}
+
+<h1>Vista de Proveedores</h1>
+
+<p>
+    <a asp-action="InsertarOpen">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cedula)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nombreComercial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cedula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombreComercial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.estado)
+            </td>
+            <td>
+                <a asp-action="ActualizarOpen" asp-route-id="@item.id">Edit</a> |
+                <a asp-action="EliminarOpen" asp-route-id="@item.id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

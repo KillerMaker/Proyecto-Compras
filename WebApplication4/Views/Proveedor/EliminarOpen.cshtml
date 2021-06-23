@@ -1,0 +1,16 @@
+﻿@model WebApplication4.Models.CEmpleado
+
+@{
+    ViewData["Title"] = "EliminarOpen";
+}
+
+<h1>Eliminar Proveedor</h1>
+
+<h3>Esta seguro que quiere eliminar esto?</h3>
+<div>
+    <hr />
+    <form asp-action="EliminarSend" asp-route-id="@ViewData["id"]">
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="SelectShow">Back to List</a>
+    </form>
+</div>
