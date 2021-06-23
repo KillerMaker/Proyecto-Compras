@@ -139,3 +139,8 @@ C:\Users\emman\source\repos\WebApplication4\WebApplication4\obj\Debug\net5.0\Raz
 C:\Users\emman\source\repos\WebApplication4\WebApplication4\obj\Debug\net5.0\Razor\Views\Proveedor\SelectShow.cshtml.g.cs
 C:\Users\emman\source\repos\WebApplication4\WebApplication4\obj\Debug\net5.0\Razor\Views\Proveedor\EliminarOpen.cshtml.g.cs
 C:\Users\emman\source\repos\WebApplication4\WebApplication4\obj\Debug\net5.0\Razor\Views\Proveedor\ActualizarOpen.cshtml.g.cs
+C:\Users\emman\source\repos\WebApplication4\WebApplication4\obj\Debug\net5.0\Razor\Views\Departamento\SelectShow.cshtml.g.cs
+C:\Users\emman\source\repos\WebApplication4\WebApplication4\obj\Debug\net5.0\Razor\Views\Departamento\InsertarOpen.cshtml.g.cs
+C:\Users\emman\source\repos\WebApplication4\WebApplication4\obj\Debug\net5.0\Razor\Views\Departamento\ActualizarOpen.cshtml.g.cs
+C:\Users\emman\source\repos\WebApplication4\WebApplication4\obj\Debug\net5.0\Razor\Views\Departamento\EliminarOpen.cshtml.g.cs
+C:\Users\emman\source\repos\WebApplication4\WebApplication4\obj\Debug\net5.0\Razor\Views\View.cshtml.g.cs

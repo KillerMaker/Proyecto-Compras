@@ -126,7 +126,7 @@ namespace WebApplication4.Models
                 command = new MySqlCommand($@"SELECT * FROM EMPLEADO {searchString}", connection);
                 reader = (MySqlDataReader)(await command.ExecuteReaderAsync());
 
-                while (reader.Read())
+                while (await reader.ReadAsync())
                 {
                     empleado = new CEmpleado((int)reader[0], (string)reader[1], (string)reader[2], (int)reader[3], (int)reader[4]);
                     empleados.Add(empleado);

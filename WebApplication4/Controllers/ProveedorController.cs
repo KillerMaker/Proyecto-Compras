@@ -7,7 +7,7 @@ using WebApplication4.Models;
 
 namespace WebApplication4.Controllers
 {
-    public class ProveedorController : Controller
+    public class ProveedorController : Controller,IController
     {
         public ActionResult InsertarOpen() => View();
         public async Task<ActionResult> InsertarSend()
@@ -39,10 +39,15 @@ namespace WebApplication4.Controllers
             return Redirect("https://localhost:44368/Proveedor/SelectShow");
         }
 
-        public ActionResult EliminarOpen(int id)
+        public async  Task<ActionResult> EliminarOpen(int id)
         {
             ViewData["id"] = id;
-            return View();
+            CProveedor proveedor = null;
+
+            foreach (CProveedor prov in await CProveedor.Select($"WHERE ID={id}"))
+                proveedor = prov;
+
+            return View(proveedor);
         }
         public async Task<ActionResult> EliminarSend(int id)
         {

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<WebApplication4.Models.CDepartamento>
+
+@{
+    ViewData["Title"] = "SelectShow";
+}
+
+<h1>Departamentos</h1>
+
+<p>
+    <a asp-action="InsertarOpen">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.estado)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "ActualizarOpen", new { item.id}) |
+                @Html.ActionLink("Delete", "EliminarOpen", new { item.id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

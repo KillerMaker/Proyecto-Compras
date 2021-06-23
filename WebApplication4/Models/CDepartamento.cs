@@ -2,28 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Data;
 
 namespace WebApplication4.Models
 {
-    public class CProveedor : CEntidad
+    public class CDepartamento : CEntidad
     {
         public int? id { get; set; }
-        public string cedula { get; set; }
-        public string nombreComercial {get ; set;}
+        public string nombre { get; set; }
         public int estado { get; set; }
 
-        public static MySqlCommand command;
-        public static MySqlDataReader reader;
-        public static MySqlConnection connection;
+        private static MySqlConnection connection;
+        private static MySqlCommand command;
+        private static MySqlDataReader reader;
 
-        public CProveedor(int? id,string cedula,string nombreComercial,int estado)
+        public CDepartamento(int? id,string nombre, int estado)
         {
             this.id = id;
-            this.cedula = cedula;
-            this.nombreComercial = nombreComercial;
+            this.nombre = nombre;
             this.estado = estado;
 
             connection = _connection;
@@ -38,20 +35,16 @@ namespace WebApplication4.Models
 
                 await connection.OpenAsync();
 
-                command = new MySqlCommand($@"INSERT INTO PROVEEDOR
-                                                        (   CEDULA,
-                                                            NOMBRE_COMERCIAL,
-                                                            ESTADO )
-                                            VALUES('{cedula}','{nombreComercial}',{estado});", connection);
-
+                command = new MySqlCommand($@"INSERT INTO DEPARTAMENTO(NOMBRE,ESTADO)VALUES('{nombre}',{estado})", connection);
+                
                 return await command.ExecuteNonQueryAsync();
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message);
             }
         }
+
         public async override Task<int> Update()
         {
             try
@@ -61,73 +54,60 @@ namespace WebApplication4.Models
 
                 await connection.OpenAsync();
 
-                command = new MySqlCommand($@"UPDATE PROVEEDOR SET
-                                                    CEDULA='{cedula}',
-                                                    NOMBRE_COMERCIAL='{nombreComercial}',
-                                                    ESTADO={estado}
-                                                WHERE ID={id};", connection);
+                command = new MySqlCommand($@"UPDATE DEPARTAMENTO SET NOMBRE='{nombre}',ESTADO={estado} WHERE ID={id}", connection);
 
                 return await command.ExecuteNonQueryAsync();
-
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message);
             }
         }
-        public async static Task<int> Delete(int id)
+        public async static Task<int>Delete(int id)
         {
             try
             {
                 connection = _connection;
-
                 if (connection.State.Equals(ConnectionState.Open))
                     await connection.CloseAsync();
 
                 await connection.OpenAsync();
 
-                command = new MySqlCommand($@"DELETE FROM PROVEEDOR WHERE ID={id}", connection);
+                command = new MySqlCommand($@"DELETE FROM DEPARTAMENTO WHERE ID={id}", connection);
 
                 return await command.ExecuteNonQueryAsync();
-
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message);
             }
         }
-        public async static Task<List<CProveedor>> Select(string searchString = null)
+        public async static Task<List<CDepartamento>> Select(string searchString = null)
         {
             try
             {
-                List<CProveedor> proveedores = new List<CProveedor>();
-                CProveedor proveedor = null;
+                List<CDepartamento> departamentos = new List<CDepartamento>();
+                CDepartamento departamento = null;
 
                 connection = _connection;
-
                 if (connection.State.Equals(ConnectionState.Open))
                     await connection.CloseAsync();
 
                 await connection.OpenAsync();
 
-                command = new MySqlCommand($@"SELECT * FROM PROVEEDOR {searchString}", connection);
+                command = new MySqlCommand($@"SELECT * FROM DEPARTAMENTO {searchString}", connection);
                 reader = (MySqlDataReader)(await command.ExecuteReaderAsync());
 
                 while (await reader.ReadAsync())
                 {
-                    proveedor = new CProveedor((int)reader[0], (string)reader[1], (string)reader[2], (int)reader[3]);
-                    proveedores.Add(proveedor);
+                    departamento = new CDepartamento((int)reader[0], (string)reader[1], (int)reader[2]);
+                    departamentos.Add(departamento);
                 }
 
-                return proveedores;
-
-
+                return departamentos;
             }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.Message);
             }
         }
