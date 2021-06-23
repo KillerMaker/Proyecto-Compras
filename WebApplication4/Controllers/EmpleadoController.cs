@@ -20,7 +20,7 @@ namespace WebApplication4.Controllers
                 int.Parse(Request.Form["Estado"].ToString()));
 
             await empleado.Insert();
-            return View("InsertarOpen");
+            return Redirect("https://localhost:44368/Empleado/SelectShow");
         }
 
         public ActionResult ActualizarOpen(int id) 
@@ -39,14 +39,18 @@ namespace WebApplication4.Controllers
                 int.Parse(Request.Form["Estado"].ToString()));
 
             await empleado.Update();
-            return View("ActualizarOpen");
+            return Redirect("https://localhost:44368/Empleado/SelectShow");
         }
 
-        public ActionResult EliminarOpen() => View();
+        public ActionResult EliminarOpen(int id) 
+        {
+            ViewData["id"] = id;
+            return View();
+        }
         public async Task<ActionResult>EliminarSend(int id)
         {
             await CEmpleado.Delete(id);
-            return View("EliminarOpen");
+            return Redirect("https://localhost:44368/Empleado/SelectShow");
         }
         public async Task<ActionResult> SelectShow() => View(await CEmpleado.Select());
         
