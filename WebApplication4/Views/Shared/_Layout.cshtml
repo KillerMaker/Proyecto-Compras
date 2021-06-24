@@ -3,15 +3,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebApplication4</title>
+    <title>@ViewData["Title"] - WorstBuy</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light" style="background-color: #cc2727; " border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WorstBuy</a>
+                <a class="navbar-brand crecer  text-light" asp-area="" asp-controller="Home" asp-action="Index">Worst Buy</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -19,25 +19,22 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Articulo" asp-action="SelectShow">Articulo</a>
+                            <a class="nav-link text-light hoover" asp-area="" asp-controller="Articulo" asp-action="SelectShow">Articulo</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Empleado" asp-action="SelectShow">Empleado</a>
+                            <a class="nav-link text-light hoover" asp-area="" asp-controller="Empleado" asp-action="SelectShow">Empleado</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Departamento" asp-action="SelectShow">Departamento</a>
+                            <a class="nav-link text-light hoover" asp-area="" asp-controller="Departamento" asp-action="SelectShow">Departamento</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="UnidadMedida" asp-action="SelectShow">UnidadMedida</a>
+                            <a class="nav-link text-light hoover" asp-area="" asp-controller="UnidadMedida" asp-action="SelectShow">Unidad Medida</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Marca" asp-action="SelectShow">Marca</a>
+                            <a class="nav-link text-light hoover" asp-area="" asp-controller="Marca" asp-action="SelectShow">Marca</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Proveedor" asp-action="SelectShow">Proveedor</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-light hoover" asp-area="" asp-controller="Proveedor" asp-action="SelectShow">Proveedor</a>
                         </li>
                     </ul>
                 </div>
@@ -50,11 +47,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - WorstBuy - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+   
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
