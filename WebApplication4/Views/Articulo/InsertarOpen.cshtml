@@ -4,41 +4,42 @@
     ViewData["Title"] = "InsertarOpen";
 }
 
-<h1>Insertar Articulo</h1>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+<h1 class="text-light" style="-webkit-text-fill-color: white; -webkit-text-stroke: 2px black;">Insertar Articulo</h1>
 
-<h4>Articulo</h4>
 <hr />
-<div class="row">
+<div class="row Card__container--float-low">
     <div class="col-md-4">
         <form asp-action="InsertarSend">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="descripcion" class="control-label"></label>
+                <label asp-for="descripcion" class="control-label" style="color:white"></label>
                 <input asp-for="descripcion" class="form-control" />
                 <span asp-validation-for="descripcion" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="marca" class="control-label"></label>
+                <label asp-for="marca" class="control-label" style="color:white"></label>
                 <input asp-for="marca" class="form-control" />
                 <span asp-validation-for="marca" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="unidadMedida" class="control-label"></label>
+                <label asp-for="unidadMedida" class="control-label" style="color:white"></label>
                 <input asp-for="unidadMedida" class="form-control" />
                 <span asp-validation-for="unidadMedida" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="existencia" class="control-label"></label>
+                <label asp-for="existencia" class="control-label" style="color:white"></label>
                 <input asp-for="existencia" class="form-control" />
                 <span asp-validation-for="existencia" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="estado" class="control-label"></label>
+                <label asp-for="estado" class="control-label" style="color:white"></label>
                 <input asp-for="estado" class="form-control" />
                 <span asp-validation-for="estado" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-outline-primary" />
             </div>
         </form>
     </div>
