@@ -6,7 +6,8 @@
 
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="~/css/site.css" />
-<h1 class="text-light" style="-webkit-text-fill-color: white; -webkit-text-stroke: 2px black;">Insertar Unidad de Medida</h1>
+<br />
+<h1>Insertar Unidad de Medida</h1>
 
 <hr />
 <div class="row Card__container--float-low">
@@ -24,9 +25,19 @@
                 <span asp-validation-for="estado" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-outline-primary" />
+                <input type="submit" value="Insertar" class="btn btn-success" style="width:100%; height:3rem" />
             </div>
         </form>
+    </div>
+    <div class="col-md-8">
+        <div style="margin: 1rem 0rem 1rem 12rem" class="IconRefresh">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-plus" width="50%" height="50%" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00b341" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <circle cx="12" cy="12" r="9" />
+                <line x1="9" y1="12" x2="15" y2="12" />
+                <line x1="12" y1="9" x2="12" y2="15" />
+            </svg>
+        </div>
     </div>
 </div>
 
