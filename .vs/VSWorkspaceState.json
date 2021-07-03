@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\WebApplication4",
+    "\\WebApplication4\\Views",
+    "\\WebApplication4\\Views\\UnidadMedida"
   ],
+  "SelectedNode": "\\WebApplication4\\Views\\UnidadMedida\\ActualizarOpen.cshtml",
   "PreviewInSolutionExplorer": false
 }

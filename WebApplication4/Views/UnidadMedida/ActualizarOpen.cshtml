@@ -6,7 +6,8 @@
 
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="~/css/site.css" />
-<h1 class="text-light" style="-webkit-text-fill-color: white; -webkit-text-stroke: 2px black;">Actualizar Unidad de Medida</h1>
+<br /><br />
+<h1>Actualizar Unidad de Medida</h1>
 
 <hr />
 <div class="row Card__container--float-low">
@@ -24,9 +25,18 @@
                 <span asp-validation-for="estado" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-outline-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" style="width:100%; height:3rem" />
             </div>
         </form>
+    </div>
+    <div class="col-md-8">
+        <div style="margin: 0rem 0rem 0rem 10rem" class="IconRefresh">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-refresh" width="60%" height="60%" viewBox="0 0 24 24" stroke-width="1.5" stroke="#00b341" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+                <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+            </svg>
+        </div>
     </div>
 </div>
 

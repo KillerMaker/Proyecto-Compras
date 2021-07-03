@@ -60,16 +60,20 @@ html {
 
 h1{
     font-size: 3rem;
+     color: white;
 }
 h2 {
     font-size: 2rem;
+    color: white;
+}
+p {
+    color: white;
 }
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    background-image: url(https://i.ytimg.com/vi/uMSqP4nyhnw/maxresdefault.jpg);
+    background-color: #3b3b3b;
     background-size: 100%;
-    
 }
 .footer {
   position: absolute;
@@ -82,7 +86,7 @@ body {
 .hoover:hover {
     padding: 0.5rem;
     border-radius: 0.2rem;
-    background-color: #d10000;
+    background-color: #e86868;
 }
 .crecer {
     transition: font-size .3s ease-in-out;
@@ -90,6 +94,15 @@ body {
 .crecer:hover {
   font-size: 1.8rem;
 }
+
+.crecer2h1 {
+    transition: font-size .5s ease-in-out;
+}
+
+.crecer2h1:hover {
+    font-size: 3.6rem;
+}
+
 .Card__container--float-low {
     box-shadow: 0 0.2rem 1rem 0 rgb(0 34 91 / 11%);
     background-color: #545454;
