@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "SelectShow";
 }
-
+<br />
 <h1>Unidades de Medida</h1>
 
 <p>
@@ -37,8 +37,8 @@
                 @Html.DisplayFor(modelItem => item.estado)
             </td>
             <td>
-                @Html.ActionLink("Edit", "ActualizarOpen", new { item.id}) |
-                @Html.ActionLink("Delete", "EliminarOpen", new { item.id})
+                <input type="submit" class="btn btn-primary" @Html.ActionLink("Edit", "ActualizarOpen", new { item.id }) | />
+                <input type="submit" class="btn btn-danger" @Html.ActionLink("Delete", "EliminarOpen", new { item.id }) />
             </td>
         </tr>
 }
