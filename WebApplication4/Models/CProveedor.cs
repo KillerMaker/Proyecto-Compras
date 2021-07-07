@@ -14,90 +14,28 @@ namespace WebApplication4.Models
         public string cedula { get; set; }
         public string nombreComercial {get ; set;}
         public int estado { get; set; }
-
-        public static MySqlCommand command;
-        public static MySqlDataReader reader;
-        public static MySqlConnection connection;
-
         public CProveedor(int? id,string cedula,string nombreComercial,int estado)
         {
             this.id = id;
             this.cedula = cedula;
             this.nombreComercial = nombreComercial;
             this.estado = estado;
-
-            connection = _connection;
         }
 
-        public async override Task<int> Insert()
-        {
-            try
-            {
-                if (connection.State.Equals(ConnectionState.Open))
-                    await connection.CloseAsync();
+        public async override Task<int> Insert() =>
+            await ExecuteCommand(@"INSERT INTO PROVEEDOR
+                                   (CEDULA, NOMBRE_COMERCIAL,ESTADO )
+                                   VALUES(@CEDULA,@NOMBRE_COMERCIAL,@ESTADO);", SqlLlenaParametros());
 
-                await connection.OpenAsync();
+        public async override Task<int> Update() =>
+            await ExecuteCommand(@"UPDATE PROVEEDOR SET
+                                                    CEDULA=@CEDULA,
+                                                    NOMBRE_COMERCIAL=@NOMBRE_COMERCIAL,
+                                                    ESTADO=@ESTADO
+                                                WHERE ID=@ID;",SqlLlenaParametros());
+        public async static Task<int> Delete(int id) =>
+            await ExecuteCommand($"DELETE FROM PROVEEDOR WHERE ID={id}");
 
-                command = new MySqlCommand($@"INSERT INTO PROVEEDOR
-                                                        (   CEDULA,
-                                                            NOMBRE_COMERCIAL,
-                                                            ESTADO )
-                                            VALUES('{cedula}','{nombreComercial}',{estado});", connection);
-
-                return await command.ExecuteNonQueryAsync();
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception(ex.Message);
-            }
-        }
-        public async override Task<int> Update()
-        {
-            try
-            {
-                if (connection.State.Equals(ConnectionState.Open))
-                    await connection.CloseAsync();
-
-                await connection.OpenAsync();
-
-                command = new MySqlCommand($@"UPDATE PROVEEDOR SET
-                                                    CEDULA='{cedula}',
-                                                    NOMBRE_COMERCIAL='{nombreComercial}',
-                                                    ESTADO={estado}
-                                                WHERE ID={id};", connection);
-
-                return await command.ExecuteNonQueryAsync();
-
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception(ex.Message);
-            }
-        }
-        public async static Task<int> Delete(int id)
-        {
-            try
-            {
-                connection = _connection;
-
-                if (connection.State.Equals(ConnectionState.Open))
-                    await connection.CloseAsync();
-
-                await connection.OpenAsync();
-
-                command = new MySqlCommand($@"DELETE FROM PROVEEDOR WHERE ID={id}", connection);
-
-                return await command.ExecuteNonQueryAsync();
-
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception(ex.Message);
-            }
-        }
         public async static Task<List<CProveedor>> Select(string searchString = null)
         {
             try
@@ -105,25 +43,18 @@ namespace WebApplication4.Models
                 List<CProveedor> proveedores = new List<CProveedor>();
                 CProveedor proveedor = null;
 
-                connection = _connection;
 
-                if (connection.State.Equals(ConnectionState.Open))
-                    await connection.CloseAsync();
-
-                await connection.OpenAsync();
-
-                command = new MySqlCommand($@"SELECT * FROM PROVEEDOR {searchString}", connection);
-                reader = (MySqlDataReader)(await command.ExecuteReaderAsync());
-
-                while (await reader.ReadAsync())
+                using(MySqlDataReader reader= await ExecuteReader($"SELECT * FROM PROVEEDOR {searchString}"))
                 {
-                    proveedor = new CProveedor((int)reader[0], (string)reader[1], (string)reader[2], (int)reader[3]);
-                    proveedores.Add(proveedor);
+                    while (await reader.ReadAsync())
+                    {
+                        proveedor = new CProveedor((int)reader[0], (string)reader[1], (string)reader[2], (int)reader[3]);
+                        proveedores.Add(proveedor);
+                    }
+
+                    await _connection.CloseAsync();
+                    return proveedores;
                 }
-
-                return proveedores;
-
-
             }
             catch (Exception ex)
             {
@@ -134,7 +65,26 @@ namespace WebApplication4.Models
 
         protected override List<MySqlParameter> SqlLlenaParametros()
         {
-            throw new NotImplementedException();
+            List<MySqlParameter> parameteros;
+            MySqlParameter SqlId = new MySqlParameter("@ID", MySqlDbType.Int32);
+            MySqlParameter SqlCedula = new MySqlParameter("@Cedula", MySqlDbType.VarChar,11);
+            MySqlParameter SqlNombreComercial = new MySqlParameter("@NOMBRE_COMERCIAL", MySqlDbType.VarChar, 50);
+            MySqlParameter SqlEstado = new MySqlParameter("@ESTADO", MySqlDbType.Int32);
+
+            SqlCedula.Value = cedula;
+            SqlNombreComercial.Value = nombreComercial;
+            SqlEstado.Value = estado;
+
+            if(id.HasValue)
+            {
+                SqlId.Value = id;
+                parameteros = new List<MySqlParameter>() { SqlId,SqlCedula,SqlNombreComercial,SqlEstado};
+            }
+            else
+                parameteros = new List<MySqlParameter>() {SqlCedula, SqlNombreComercial, SqlEstado };
+
+            return parameteros;
+
         }
     }
 }
