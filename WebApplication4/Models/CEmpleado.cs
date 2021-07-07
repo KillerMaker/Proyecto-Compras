@@ -17,6 +17,9 @@ namespace WebApplication4.Models
         public int departamento { get; set; }
         public  int estado { get; set; }
 
+        public string nombreEstado { get; set; }
+        public string nombreDepartamento { get; set; }
+
         public CEmpleado(int? id, string cedula,string nombre,int departamento,int estado)
         {
             this.id = id;
@@ -53,11 +56,13 @@ namespace WebApplication4.Models
                 List<CEmpleado> empleados = new List<CEmpleado>();
                 CEmpleado empleado = null;
 
-                using(MySqlDataReader reader= await ExecuteReader($@"SELECT * FROM EMPLEADO {searchString}"))
+                using(MySqlDataReader reader= await ExecuteReader($@"SELECT * FROM VISTA_EMPLEADO {searchString}"))
                 {
                     while (await reader.ReadAsync())
                     {
-                        empleado = new CEmpleado((int)reader[0], (string)reader[1], (string)reader[2], (int)reader[3], (int)reader[4]);
+                        empleado = new CEmpleado((int)reader[0], (string)reader[1], (string)reader[2], (int)reader[3], (int)reader[4]) 
+                            { nombreEstado=(string)reader[5],nombreDepartamento=(string)reader[6]};
+
                         empleados.Add(empleado);
                     }
 

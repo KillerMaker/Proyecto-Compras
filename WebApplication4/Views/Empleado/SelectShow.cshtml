@@ -1,61 +1,61 @@
 ﻿@model IEnumerable<WebApplication4.Models.CEmpleado>
+    @{
+        ViewData["Title"] = "SelectShow";
+    }
+    <br />
+    <h1>Empleados</h1>
 
-@{
-    ViewData["Title"] = "SelectShow";
-}
-<br />
-<h1>Empleados</h1>
 
-
-<p>
-    <a asp-action="InsertarOpen" class="btn btn-success">Crear Nuevo</a>
-</p>
-<table class="table table-dark table-striped  table-hover">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.cedula)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.departamento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.estado)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.cedula)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.departamento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.estado)
-            </td>
-            <td>
-                @*@Html.ActionLink("Edit", $"ActualizarOpen={item.id}", new { /* id=item.PrimaryKey */ }) |*@
-                <a asp-action="ActualizarOpen" asp-route-id="@item.id" class="btn btn-primary">Editar</a> |
-                <a asp-action="EliminarOpen" asp-route-id="@item.id" class="btn btn-danger">Eliminar</a>
-                @*Html.ActionLink("Delete", "EliminarOpen", new { /* id=item.PrimaryKey */ })*@
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <p>
+        <a asp-action="InsertarOpen" class="btn btn-success">Crear Nuevo</a>
+    </p>
+    <table class="table table-dark table-striped  table-hover">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Cedula
+                </th>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Departamento
+                </th>
+                <th>
+                    Estado
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.cedula)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombreDepartamento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombreEstado)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", $"ActualizarOpen={item.id}", new { /* id=item.PrimaryKey */ }) |*@
+                    <a asp-action="ActualizarOpen" asp-route-id="@item.id" class="btn btn-primary">Editar</a> |
+                    <a asp-action="EliminarOpen" asp-route-id="@item.id" class="btn btn-danger">Eliminar</a>
+                    @*Html.ActionLink("Delete", "EliminarOpen", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>

@@ -1,5 +1,5 @@
 ﻿@model WebApplication4.Models.CEmpleado
-
+@using MySql.Data.MySqlClient;
 @{
     ViewData["Title"] = "ActualizarOpen";
 }
@@ -26,12 +26,30 @@
             </div>
             <div class="form-group">
                 <label asp-for="departamento" class="control-label" style="color:white"></label>
-                <input asp-for="departamento" class="form-control" />
+                <select asp-for="departamento" class="form-control">
+                    @using (MySqlDataReader reader = await CEntidad.ExecuteReader("SELECT * FROM DEPARTAMENTO"))
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            <option value="@reader["ID"]">@reader["NOMBRE"]</option>
+                        }
+                        await CEntidad._connection.CloseAsync();
+                    }
+                </select>
                 <span asp-validation-for="departamento" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="estado" class="control-label" style="color:white"></label>
-                <input asp-for="estado" class="form-control" />
+                <select asp-for="estado" class="form-control">
+                    @using (MySqlDataReader reader = await CEntidad.ExecuteReader("SELECT * FROM ESTADO"))
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            <option value="@reader["ID"]">@reader["NOMBRE"]</option>
+                        }
+                        await CEntidad._connection.CloseAsync();
+                    }
+                </select>
                 <span asp-validation-for="estado" class="text-danger"></span>
             </div>
             <div class="form-group">
