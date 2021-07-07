@@ -9,9 +9,13 @@ namespace WebApplication4.Models
 {
     public class CUnidadMedida : CEntidad
     {
+        //Atributos de constructor
         public int? id { get; set; }
         public string descripcion { get; set; }
         public int estado { get; set; }
+
+        //Atributos de vista
+        public string nombreEstado { get; set; }
         public CUnidadMedida(int? id, string descripcion, int estado)
         {
             this.id = id;
@@ -38,13 +42,16 @@ namespace WebApplication4.Models
             {
                 List<CUnidadMedida> UnidadesMedidas = new List<CUnidadMedida>();
                 CUnidadMedida unidadMedida = null;
-                string query = $@"SELECT * FROM UNIDAD_MEDIDA {searchString}";
+                string query = $@"SELECT * FROM UNIDAD_MEDIDA U INNER JOIN ESTADO E ON E.ID=U.ESTADO {searchString}";
 
                 using (MySqlDataReader reader = await ExecuteReader(query))
                 {
                     while (reader.Read())
                     {
-                        unidadMedida = new CUnidadMedida((int)reader[0], (string)reader[1], (int)reader[2]);
+                        unidadMedida = new CUnidadMedida((int)reader[0], (string)reader[1], (int)reader[2]) 
+                        {
+                            nombreEstado=(string)reader[4]
+                        };
                         UnidadesMedidas.Add(unidadMedida);
                     }
 

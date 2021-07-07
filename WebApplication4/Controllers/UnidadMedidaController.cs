@@ -27,7 +27,7 @@ namespace WebApplication4.Controllers
             ViewData["id"] = id;
             CUnidadMedida unidadMedida = null;
 
-            foreach (CUnidadMedida um in await CUnidadMedida.Select($"WHERE ID={id}")) 
+            foreach (CUnidadMedida um in await CUnidadMedida.Select($"WHERE U.ID={id}")) 
                 unidadMedida = um;
 
             return View(unidadMedida);
