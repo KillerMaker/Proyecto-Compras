@@ -9,9 +9,13 @@ namespace WebApplication4.Models
 {
     public class CMarca : CEntidad
     {
+        //Atributos de constructor
         public int? id { get; set; }
         public string descripcion { get; set; }
         public int estado { get; set; }
+
+        //Atributos de vista
+        public string nombreEstado { get; set; }
 
         public CMarca(int? id, string descripcion,int estado)
         {
@@ -39,13 +43,16 @@ namespace WebApplication4.Models
             {
                 List<CMarca> marcas = new List<CMarca>();
                 CMarca marca = null;
-                string query = $@"SELECT * FROM MARCA {searchString}";
+                string query = $@"SELECT * FROM MARCA M INNER JOIN ESTADO E ON E.ID=M.ESTADO {searchString}";
 
                 using (MySqlDataReader reader=await ExecuteReader(query))
                 {
                     while (reader.Read())
                     {
-                        marca = new CMarca((int)reader[0], (string)reader[1], (int)reader[2]);
+                        marca = new CMarca((int)reader[0], (string)reader[1], (int)reader[2]) 
+                        {
+                            nombreEstado=(string)reader[4]
+                        };
                         marcas.Add(marca);
                     }
 

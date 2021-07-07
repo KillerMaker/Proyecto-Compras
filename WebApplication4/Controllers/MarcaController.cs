@@ -27,7 +27,7 @@ namespace WebApplication4.Controllers
             ViewData["id"] = id;
             CMarca marca = null;
 
-            foreach (CMarca mrc in await CMarca.Select($"WHERE ID={id}"))
+            foreach (CMarca mrc in await CMarca.Select($"WHERE M.ID={id}"))
                 marca = mrc;
             
             return View(marca);
