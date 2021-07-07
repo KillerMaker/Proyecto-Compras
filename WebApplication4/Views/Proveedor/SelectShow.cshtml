@@ -13,16 +13,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.id)
+                Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.cedula)
+                Cedula
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.nombreComercial)
+                Nombre Comercial
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.estado)
+                Estado
             </th>
             <th></th>
         </tr>
@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.nombreComercial)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.estado)
+                @Html.DisplayFor(modelItem => item.nombreEstado)
             </td>
             <td>
                 @*@Html.ActionLink("Edit", $"ActualizarOpen={item.id}", new { /* id=item.PrimaryKey */ }) |*@

@@ -10,10 +10,14 @@ namespace WebApplication4.Models
 {
     public class CProveedor : CEntidad
     {
+        //Atributos de constructor
         public int? id { get; set; }
         public string cedula { get; set; }
         public string nombreComercial {get ; set;}
         public int estado { get; set; }
+
+        //Atributos de vista
+        public string nombreEstado { get; set; }
         public CProveedor(int? id,string cedula,string nombreComercial,int estado)
         {
             this.id = id;
@@ -44,11 +48,14 @@ namespace WebApplication4.Models
                 CProveedor proveedor = null;
 
 
-                using(MySqlDataReader reader= await ExecuteReader($"SELECT * FROM PROVEEDOR {searchString}"))
+                using(MySqlDataReader reader= await ExecuteReader($"SELECT * FROM PROVEEDOR P INNER JOIN ESTADO E ON E.ID=P.ESTADO {searchString}"))
                 {
                     while (await reader.ReadAsync())
                     {
-                        proveedor = new CProveedor((int)reader[0], (string)reader[1], (string)reader[2], (int)reader[3]);
+                        proveedor = new CProveedor((int)reader[0], (string)reader[1], (string)reader[2], (int)reader[3]) 
+                        {
+                            nombreEstado=(string)reader[5]
+                        };
                         proveedores.Add(proveedor);
                     }
 

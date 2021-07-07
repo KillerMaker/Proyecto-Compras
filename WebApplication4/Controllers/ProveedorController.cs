@@ -44,7 +44,7 @@ namespace WebApplication4.Controllers
             ViewData["id"] = id;
             CProveedor proveedor = null;
 
-            foreach (CProveedor prov in await CProveedor.Select($"WHERE ID={id}"))
+            foreach (CProveedor prov in await CProveedor.Select($"WHERE P.ID={id}"))
                 proveedor = prov;
 
             return View(proveedor);
