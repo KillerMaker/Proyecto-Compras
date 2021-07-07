@@ -7,7 +7,7 @@
 <h1>Proveedores</h1>
 
 <p>
-    <a asp-action="InsertarOpen">Create New</a>
+    <a asp-action="InsertarOpen" class="btn btn-success">Crear Nuevo</a>
 </p>
 <table class="table table-dark table-striped table-hover">
     <thead>
@@ -43,8 +43,10 @@
                 @Html.DisplayFor(modelItem => item.estado)
             </td>
             <td>
-                <a asp-action="ActualizarOpen" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="EliminarOpen" asp-route-id="@item.id">Delete</a>
+                @*@Html.ActionLink("Edit", $"ActualizarOpen={item.id}", new { /* id=item.PrimaryKey */ }) |*@
+                <a asp-action="ActualizarOpen" asp-route-id="@item.id" class="btn btn-primary">Editar</a> |
+                <a asp-action="EliminarOpen" asp-route-id="@item.id" class="btn btn-danger">Eliminar</a>
+                @*Html.ActionLink("Delete", "EliminarOpen", new { /* id=item.PrimaryKey */ })*@
             </td>
         </tr>
 }

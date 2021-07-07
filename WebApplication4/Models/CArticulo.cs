@@ -16,10 +16,6 @@ namespace WebApplication4.Models
         public int existencia { get; set; }
         public int estado { get; set; }
 
-        private static MySqlConnection connection;
-        private static MySqlCommand command;
-        private static MySqlDataReader reader;
-
         public CArticulo(int? id, string descripcion, int marca, int unidadMedida, int existencia, int estado)
         {
             this.id = id;
@@ -28,115 +24,94 @@ namespace WebApplication4.Models
             this.unidadMedida = unidadMedida;
             this.existencia = existencia;
             this.estado = estado;
-
-            connection = _connection;
         }
 
-        public async override Task<int> Insert()
-        {
-            try
-            {
-                if (connection.State.Equals(ConnectionState.Open))
-                    await connection.CloseAsync();
+        public async override Task<int> Insert() => 
+            await ExecuteCommand(@"INSERT INTO ARTICULO
+                                                    (DESCRIPCION,MARCA,UNIDAD_MEDIDA,EXISTENCIA,ESTADO)
+                                                    VALUES(
+                                                            @DESCRIPCION, 
+                                                            @MARCA,
+                                                            @UNIDAD_MEDIDA,
+                                                            @EXISTENCIA,
+                                                            @ESTADO)",SqlLlenaParametros());
 
-                await connection.OpenAsync();
+        public async override Task<int> Update() => 
+            await ExecuteCommand(@"UPDATE ARTICULO SET
+                                                DESCRIPCION = @DESCRIPCION,
+                                                MARCA = @MARCA,
+                                                UNIDAD_MEDIDA = @UNIDAD_MEDIDA,
+                                                EXISTENCIA = @EXISTENCIA,
+                                                ESTADO = @ESTADO WHERE ID=@ID",SqlLlenaParametros());
 
-                command = new MySqlCommand($@"INSERT INTO ARTICULO
-                                                (DESCRIPCION,MARCA,UNIDAD_MEDIDA,EXISTENCIA,ESTADO)
-                                                    VALUES('{descripcion}',
-                                                            {marca},
-                                                            {unidadMedida},
-                                                            {existencia},
-                                                            {estado})", connection);
+        public async static Task<int> Delete(int id) =>
+            await ExecuteCommand($@"DELETE FROM ARTICULO WHERE ID={id}");
 
-                return await command.ExecuteNonQueryAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public async override Task<int> Update()
-        {
-            try
-            {
-                if (connection.State.Equals(ConnectionState.Open))
-                    await connection.CloseAsync();
-
-                await connection.OpenAsync();
-
-                command = new MySqlCommand($@"UPDATE ARTICULO SET
-                                                DESCRIPCION = '{descripcion}',
-                                                MARCA = {marca},
-                                                UNIDAD_MEDIDA = {unidadMedida},
-                                                EXISTENCIA = {existencia},
-                                                ESTADO = {estado} WHERE ID={id}", connection);
-
-                return await command.ExecuteNonQueryAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public async static Task<int> Delete(int id)
-        {
-            try
-            {
-                connection = _connection;
-                if (connection.State.Equals(ConnectionState.Open))
-                    await connection.CloseAsync();
-
-                await connection.OpenAsync();
-
-                command = new MySqlCommand($@"DELETE FROM ARTICULO WHERE ID={id}", connection);
-
-                return await command.ExecuteNonQueryAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
         public async static Task<List<CArticulo>> Select(string searchString = null)
         {
             try
             {
                 List<CArticulo> articulos = new List<CArticulo>();
                 CArticulo articulo = null;
+                string query = $"SELECT * FROM ARTICULO {searchString}";
 
-                connection = _connection;
-                if (connection.State.Equals(ConnectionState.Open))
-                    await connection.CloseAsync();
-
-                await connection.OpenAsync();
-
-                command = new MySqlCommand($@"SELECT * FROM ARTICULO {searchString}", connection);
-                reader = (MySqlDataReader)(await command.ExecuteReaderAsync());
-
-                while (reader.Read())
+                using (MySqlDataReader reader = await ExecuteReader(query))
                 {
-                    articulo = new CArticulo
-                       (
-                           (int)reader[0],
-                           (string)reader[1],
-                           (int)reader[2],
-                           (int)reader[3],
-                           (int)reader[4],
-                           (int)reader[5]
-                       );
+                    while (reader.Read())
+                    {
+                        articulo = new CArticulo
+                            (
+                                (int)reader[0],
+                                (string)reader[1],
+                                (int)reader[2],
+                                (int)reader[3],
+                                (int)reader[4],
+                                (int)reader[5]
+                            );
 
-                    articulos.Add(articulo);
+                        articulos.Add(articulo);
+                    }
+
+                    await _connection.CloseAsync();
+                    return articulos;
                 }
-
-                return articulos;
+                
             }
             catch (Exception ex)
             {
+
                 throw new Exception(ex.Message);
             }
+        }
+
+        protected override List<MySqlParameter> SqlLlenaParametros()
+        {
+            List<MySqlParameter> parametros;
+
+            MySqlParameter SqlId = new MySqlParameter("@ID", MySqlDbType.Int32);
+            MySqlParameter SqlDescripcion = new MySqlParameter("@DESCRIPCION", MySqlDbType.VarChar, 200);
+            MySqlParameter SqlMarca = new MySqlParameter("@MARCA", MySqlDbType.Int32);
+            MySqlParameter SqlUnidadMedida = new MySqlParameter("@UNIDAD_MEDIDA", MySqlDbType.Int32);
+            MySqlParameter SqlExistencia = new MySqlParameter("@EXISTENCIA", MySqlDbType.Int32);
+            MySqlParameter SqlEstado = new MySqlParameter("@ESTADO", MySqlDbType.Int32);
+
+            SqlDescripcion.Value = descripcion;
+            SqlMarca.Value = marca;
+            SqlUnidadMedida.Value = unidadMedida;
+            SqlExistencia.Value = existencia;
+            SqlEstado.Value = estado;
+
+            if (id.HasValue)
+            {
+                SqlId.Value = id;
+                parametros = new List<MySqlParameter>()
+                    {SqlId,SqlDescripcion,SqlMarca,SqlUnidadMedida,SqlExistencia,SqlEstado};
+            }
+            else
+                parametros = new List<MySqlParameter>()
+                    { SqlDescripcion,SqlMarca,SqlUnidadMedida,SqlExistencia,SqlEstado};
+
+            return parametros;
         }
     }
 }

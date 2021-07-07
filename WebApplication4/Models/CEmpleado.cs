@@ -17,11 +17,6 @@ namespace WebApplication4.Models
         public int departamento { get; set; }
         public  int estado { get; set; }
 
-        public static MySqlCommand command;
-        public static MySqlDataReader reader;
-        public static MySqlConnection connection;
-
-        [JsonConstructor]
         public CEmpleado(int? id, string cedula,string nombre,int departamento,int estado)
         {
             this.id = id;
@@ -31,83 +26,25 @@ namespace WebApplication4.Models
             this.estado = estado;
         }
 
-        public async override Task<int> Insert()
-        {
-            try
-            {
-                connection = _connection;
+        public async override Task<int> Insert() =>
+            await ExecuteCommand(@"INSERT INTO EMPLEADO
+                                    (CEDULA,
+                                    NOMBRE,
+                                    DEPARTAMENTO,
+                                    ESTADO)
+                                   VALUES(@CEDULA,@NOMBRE,@DEPARTAMENTO,@ESTADO);", SqlLlenaParametros());
 
-                if (connection.State.Equals(ConnectionState.Open))
-                    await connection.CloseAsync();
 
-                await connection.OpenAsync();
+        public async override Task<int> Update() =>
+            await ExecuteCommand($@"UPDATE EMPLEADO SET 
+                                    CEDULA=@CEDULA,
+                                    NOMBRE=@NOMBRE, 
+                                    DEPARTAMENTO=@DEPARTAMENTO, 
+                                    ESTADO=@ESTADO
+                                    WHERE ID=@ID",SqlLlenaParametros());
+        public async static Task<int> Delete(int id) =>
+            await ExecuteCommand($"DELETE FROM EMPLEADO WHERE ID={id}");
 
-                command = new MySqlCommand($@"INSERT INTO EMPLEADO
-                                                        (CEDULA,
-                                                        NOMBRE,
-                                                        DEPARTAMENTO,
-                                                        ESTADO)
-                                            VALUES('{cedula}','{nombre}',{departamento},{estado});", connection);
-
-                return await command.ExecuteNonQueryAsync();
-                
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public async override Task<int> Update()
-        {
-            try
-            {
-                connection = _connection;
-
-                if (connection.State.Equals(ConnectionState.Open))
-                    await connection.CloseAsync();
-
-                await connection.OpenAsync();
-
-                command = new MySqlCommand($@"UPDATE EMPLEADO SET
-                                                    CEDULA='{cedula}',
-                                                    NOMBRE='{nombre}',
-                                                    DEPARTAMENTO={departamento},
-                                                    ESTADO={estado}
-                                                WHERE ID={id};", connection);
-
-                return await command.ExecuteNonQueryAsync();
-
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception(ex.Message);
-            }
-        }
-        public async static Task<int> Delete(int id)
-        {
-            try
-            {
-                connection = _connection;
-
-                if (connection.State.Equals(ConnectionState.Open))
-                    await connection.CloseAsync();
-
-                await connection.OpenAsync();
-
-                command = new MySqlCommand($@"DELETE FROM EMPLEADO WHERE ID={id}", connection);
-
-                return await command.ExecuteNonQueryAsync();
-
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception(ex.Message);
-            }
-        }
 
         public async static Task<List<CEmpleado>> Select(string searchString = null)
         {
@@ -116,25 +53,17 @@ namespace WebApplication4.Models
                 List<CEmpleado> empleados = new List<CEmpleado>();
                 CEmpleado empleado = null;
 
-                connection = _connection;
-
-                if (connection.State.Equals(ConnectionState.Open))
-                    await connection.CloseAsync();
-
-                await connection.OpenAsync();
-
-                command = new MySqlCommand($@"SELECT * FROM EMPLEADO {searchString}", connection);
-                reader = (MySqlDataReader)(await command.ExecuteReaderAsync());
-
-                while (await reader.ReadAsync())
+                using(MySqlDataReader reader= await ExecuteReader($@"SELECT * FROM EMPLEADO {searchString}"))
                 {
-                    empleado = new CEmpleado((int)reader[0], (string)reader[1], (string)reader[2], (int)reader[3], (int)reader[4]);
-                    empleados.Add(empleado);
+                    while (await reader.ReadAsync())
+                    {
+                        empleado = new CEmpleado((int)reader[0], (string)reader[1], (string)reader[2], (int)reader[3], (int)reader[4]);
+                        empleados.Add(empleado);
+                    }
+
+                    await _connection.CloseAsync();
+                    return empleados;
                 }
-
-                return empleados;
-                
-
             }
             catch (Exception ex)
             {
@@ -143,5 +72,30 @@ namespace WebApplication4.Models
             }
         }
 
+        protected override List<MySqlParameter> SqlLlenaParametros()
+        {
+            List<MySqlParameter> parametros;
+
+            MySqlParameter SqlId = new MySqlParameter("@ID", MySqlDbType.Int32);
+            MySqlParameter SqlCedula = new MySqlParameter("@CEDULA", MySqlDbType.VarChar,11);
+            MySqlParameter SqlNombre = new MySqlParameter("@NOMBRE", MySqlDbType.VarChar, 50);
+            MySqlParameter SqlDepartamento = new MySqlParameter("@DEPARTAMENTO", MySqlDbType.Int32);
+            MySqlParameter SqlEstado = new MySqlParameter("@ESTADO", MySqlDbType.Int32);
+
+            SqlCedula.Value = cedula;
+            SqlNombre.Value = nombre;
+            SqlDepartamento.Value = departamento;
+            SqlEstado.Value = estado;
+
+            if(id.HasValue)
+            {
+                SqlId.Value = id;
+                parametros = new List<MySqlParameter>() { SqlId, SqlCedula,SqlNombre, SqlDepartamento, SqlEstado };
+            }
+            else
+                parametros = new List<MySqlParameter>() {SqlNombre,SqlCedula, SqlDepartamento, SqlEstado };
+
+            return parametros;
+        }
     }
 }

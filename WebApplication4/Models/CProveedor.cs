@@ -131,5 +131,10 @@ namespace WebApplication4.Models
                 throw new Exception(ex.Message);
             }
         }
+
+        protected override List<MySqlParameter> SqlLlenaParametros()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

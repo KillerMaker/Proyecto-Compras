@@ -13,103 +13,67 @@ namespace WebApplication4.Models
         public string nombre { get; set; }
         public int estado { get; set; }
 
-        private static MySqlConnection connection;
-        private static MySqlCommand command;
-        private static MySqlDataReader reader;
-
         public CDepartamento(int? id,string nombre, int estado)
         {
             this.id = id;
             this.nombre = nombre;
             this.estado = estado;
-
-            connection = _connection;
         }
 
-        public async override Task<int> Insert()
-        {
-            try
-            {
-                if (connection.State.Equals(ConnectionState.Open))
-                    await connection.CloseAsync();
+        public async override Task<int> Insert() => 
+            await ExecuteCommand(@"INSERT INTO DEPARTAMENTO(NOMBRE,ESTADO)VALUES(@NOMBRE,@ESTADO)",SqlLlenaParametros());
 
-                await connection.OpenAsync();
+        public async override Task<int> Update() => 
+            await ExecuteCommand(@"UPDATE DEPARTAMENTO SET NOMBRE=@NOMBRE,ESTADO=@ESTADO WHERE ID=@ID",SqlLlenaParametros());
 
-                command = new MySqlCommand($@"INSERT INTO DEPARTAMENTO(NOMBRE,ESTADO)VALUES('{nombre}',{estado})", connection);
-                
-                return await command.ExecuteNonQueryAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
+        public async static Task<int> Delete(int id) =>
+            await ExecuteCommand($"DELETE FROM DEPARTAMENTO WHERE ID={id}");
 
-        public async override Task<int> Update()
-        {
-            try
-            {
-                if (connection.State.Equals(ConnectionState.Open))
-                    await connection.CloseAsync();
-
-                await connection.OpenAsync();
-
-                command = new MySqlCommand($@"UPDATE DEPARTAMENTO SET NOMBRE='{nombre}',ESTADO={estado} WHERE ID={id}", connection);
-
-                return await command.ExecuteNonQueryAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-        public async static Task<int>Delete(int id)
-        {
-            try
-            {
-                connection = _connection;
-                if (connection.State.Equals(ConnectionState.Open))
-                    await connection.CloseAsync();
-
-                await connection.OpenAsync();
-
-                command = new MySqlCommand($@"DELETE FROM DEPARTAMENTO WHERE ID={id}", connection);
-
-                return await command.ExecuteNonQueryAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
         public async static Task<List<CDepartamento>> Select(string searchString = null)
         {
             try
             {
                 List<CDepartamento> departamentos = new List<CDepartamento>();
                 CDepartamento departamento = null;
+                string query = $@"SELECT * FROM DEPARTAMENTO {searchString}";
 
-                connection = _connection;
-                if (connection.State.Equals(ConnectionState.Open))
-                    await connection.CloseAsync();
+                using (MySqlDataReader reader =await ExecuteReader(query))
+                    
+                    while (await reader.ReadAsync())
+                    {
+                        departamento = new CDepartamento((int)reader[0], (string)reader[1], (int)reader[2]);
+                        departamentos.Add(departamento);
+                    }
 
-                await connection.OpenAsync();
-
-                command = new MySqlCommand($@"SELECT * FROM DEPARTAMENTO {searchString}", connection);
-                reader = (MySqlDataReader)(await command.ExecuteReaderAsync());
-
-                while (await reader.ReadAsync())
-                {
-                    departamento = new CDepartamento((int)reader[0], (string)reader[1], (int)reader[2]);
-                    departamentos.Add(departamento);
-                }
-
+                await _connection.CloseAsync();
                 return departamentos;
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        protected override List<MySqlParameter> SqlLlenaParametros()
+        {
+            List<MySqlParameter> parametros;
+            MySqlParameter SqlId = new MySqlParameter("@ID", MySqlDbType.Int32);
+            MySqlParameter SqlNombre = new MySqlParameter("@NOMBRE", MySqlDbType.VarChar,50);
+            MySqlParameter SqlEstado = new MySqlParameter("@ESTADO", MySqlDbType.Int32);
+
+            SqlNombre.Value = nombre;
+            SqlEstado.Value = estado;
+
+            if (id.HasValue)
+            {
+                SqlId.Value = id;
+                parametros = new List<MySqlParameter>() { SqlId, SqlNombre, SqlEstado };
+            }
+            else
+                parametros = new List<MySqlParameter>() {SqlNombre, SqlEstado };
+
+            return parametros;
+
         }
     }
 }
