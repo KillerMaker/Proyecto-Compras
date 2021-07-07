@@ -16,6 +16,10 @@ namespace WebApplication4.Models
         public int existencia { get; set; }
         public int estado { get; set; }
 
+        public string nombreMarca { get; set; }
+        public string nombreEstado { get; set; }
+        public string nombreUnidadMedida { get; set; }
+
         public CArticulo(int? id, string descripcion, int marca, int unidadMedida, int existencia, int estado)
         {
             this.id = id;
@@ -53,7 +57,7 @@ namespace WebApplication4.Models
             {
                 List<CArticulo> articulos = new List<CArticulo>();
                 CArticulo articulo = null;
-                string query = $"SELECT * FROM ARTICULO {searchString}";
+                string query = $"SELECT * FROM VISTA_ARTICULO {searchString}";
 
                 using (MySqlDataReader reader = await ExecuteReader(query))
                 {
@@ -67,7 +71,12 @@ namespace WebApplication4.Models
                                 (int)reader[3],
                                 (int)reader[4],
                                 (int)reader[5]
-                            );
+                            )
+                        {   
+                            nombreMarca=(string)reader[6],
+                            nombreUnidadMedida=(string)reader[7],
+                            nombreEstado=(string)reader[8]
+                        };
 
                         articulos.Add(articulo);
                     }

@@ -13,22 +13,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.id)
+               Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.descripcion)
+               Descripcion
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.marca)
+                Marca
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.unidadMedida)
+                Unidad de Medida
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.existencia)
+                Existencia
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.estado)
+                Estado
             </th>
             <th></th>
         </tr>
@@ -43,16 +43,16 @@
                 @Html.DisplayFor(modelItem => item.descripcion)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.marca)
+                @Html.DisplayFor(modelItem => item.nombreMarca)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.unidadMedida)
+                @Html.DisplayFor(modelItem => item.nombreUnidadMedida)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.existencia)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.estado)
+                @Html.DisplayFor(modelItem => item.nombreEstado)
             </td>
             <td>
 
