@@ -9,6 +9,7 @@ namespace WebApplication4.Models
 {
     public class CArticulo : CEntidad
     {
+        //atributos de constructor
         public int? id { get; set; }
         public string descripcion { get; set; }
         public int marca { get; set; }
@@ -16,6 +17,7 @@ namespace WebApplication4.Models
         public int existencia { get; set; }
         public int estado { get; set; }
 
+        //atributos de vista
         public string nombreMarca { get; set; }
         public string nombreEstado { get; set; }
         public string nombreUnidadMedida { get; set; }

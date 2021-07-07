@@ -46,7 +46,7 @@ namespace WebApplication4.Controllers
             ViewData["id"] = id;
             CDepartamento departamento = null;
 
-            foreach (CDepartamento depto in await CDepartamento.Select($"WHERE ID={id}"))
+            foreach (CDepartamento depto in await CDepartamento.Select($"WHERE D.ID={id}"))
                 departamento = depto;
 
             return View(departamento);

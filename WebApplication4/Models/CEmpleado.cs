@@ -11,12 +11,14 @@ namespace WebApplication4.Models
 {
     public class CEmpleado:CEntidad
     {
+        //atributos de constructor
         public int? id { get; set; }
         public string cedula { get; set; }
         public string nombre { get; set; }
         public int departamento { get; set; }
         public  int estado { get; set; }
 
+        //atributos de vista
         public string nombreEstado { get; set; }
         public string nombreDepartamento { get; set; }
 

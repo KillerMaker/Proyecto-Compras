@@ -9,9 +9,13 @@ namespace WebApplication4.Models
 {
     public class CDepartamento : CEntidad
     {
+        //Atributos de constructor
         public int? id { get; set; }
         public string nombre { get; set; }
         public int estado { get; set; }
+
+        //Atributos de vista
+        public string nombreEstado { get; set; }
 
         public CDepartamento(int? id,string nombre, int estado)
         {
@@ -35,13 +39,16 @@ namespace WebApplication4.Models
             {
                 List<CDepartamento> departamentos = new List<CDepartamento>();
                 CDepartamento departamento = null;
-                string query = $@"SELECT * FROM DEPARTAMENTO {searchString}";
+                string query = $@"SELECT * FROM DEPARTAMENTO D INNER JOIN ESTADO E ON E.ID=D.ESTADO {searchString}";
 
                 using (MySqlDataReader reader =await ExecuteReader(query))
                     
                     while (await reader.ReadAsync())
                     {
-                        departamento = new CDepartamento((int)reader[0], (string)reader[1], (int)reader[2]);
+                        departamento = new CDepartamento((int)reader[0], (string)reader[1], (int)reader[2]) 
+                        {
+                            nombreEstado=(string)reader[4]
+                        };
                         departamentos.Add(departamento);
                     }
 

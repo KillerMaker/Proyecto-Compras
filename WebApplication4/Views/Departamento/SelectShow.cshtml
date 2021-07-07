@@ -13,13 +13,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.id)
+                Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.nombre)
+                Nombre
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.estado)
+                Estado
             </th>
             <th></th>
         </tr>
@@ -34,7 +34,7 @@
                 @Html.DisplayFor(modelItem => item.nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.estado)
+                @Html.DisplayFor(modelItem => item.nombreEstado)
             </td>
             <td>
                 @*@Html.ActionLink("Edit", $"ActualizarOpen={item.id}", new { /* id=item.PrimaryKey */ }) |*@
