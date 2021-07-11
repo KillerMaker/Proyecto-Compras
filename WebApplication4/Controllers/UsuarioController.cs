@@ -97,13 +97,11 @@ namespace WebApplication4.Controllers
                 HttpContext.Session.SetString("nombre", usuario.nombre);
                 HttpContext.Session.SetInt32("tipoUsuario", usuario.tipoUsuario);
 
-                if (usuario.tipoUsuario.Equals(1))
-                    return Redirect("https://localhost:44368/Home/Index");
-                //else if (usuario.tipoUsuario.Equals(2))
-                //    return Redirect("https://localhost:44368/NormalUserHome/Index");
-            }
+                return Redirect("https://localhost:44368/Home/Index");
 
-            return Redirect("https://localhost:44368/Usuario/LoginOpen");
+            }
+            else
+                return Redirect("https://localhost:44368/Usuario/LoginOpen");
         }
 
     }
