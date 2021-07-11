@@ -79,7 +79,13 @@ namespace WebApplication4.Controllers
         }
 
         public async Task<ActionResult> SelectShow() => View(await Usuario.Select());
-        public ActionResult LoginOpen() => View();
+        public ActionResult LoginOpen() 
+        {
+            HttpContext.Session.SetString("nombre", "");
+            HttpContext.Session.SetInt32("tipoUsuario", 0);
+
+            return View();
+        }
         public async Task<ActionResult>LoginSend()
         {
             string nombreUsuario = Request.Form["NombreUsuario"];
