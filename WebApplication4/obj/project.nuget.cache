@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "AXDL8MRsEP1FR8/2i4p9ni+4uZk24mcaqa0x3rObShEuzBIRA3FLhCx9Idr+nFFqLkPtIY/5cgIodtqfi4aZrA==",
+  "dgSpecHash": "IckK0aozBaJ82pCb/kXGGXddyrwI9oY3q8Ys3seBM6Y7lNlWy8kOr+k7wxeVHkwjL8cCg97Du+n0BEqyblzAXQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\emman\\source\\repos\\ProyectoCompras\\WebApplication4\\WebApplication4.csproj",
   "expectedPackageFiles": [
@@ -39,6 +39,7 @@
     "C:\\Users\\emman\\.nuget\\packages\\mysql.data\\8.0.25\\mysql.data.8.0.25.nupkg.sha512",
     "C:\\Users\\emman\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Users\\emman\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
+    "C:\\Users\\emman\\.nuget\\packages\\restsharp\\106.11.7\\restsharp.106.11.7.nupkg.sha512",
     "C:\\Users\\emman\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\emman\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\emman\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",

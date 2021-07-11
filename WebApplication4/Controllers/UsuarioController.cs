@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,7 +69,7 @@ namespace WebApplication4.Controllers
             if(usuario.clave==Request.Form["ConfirmarClave"])
             {
                 await usuario.Insert();
-                return Redirect("https://localhost:44368/Usuario/SelectShow");
+                return RedirectToAction("LoginOpen");
             }
             else
             {
@@ -83,11 +86,18 @@ namespace WebApplication4.Controllers
             string clave = Request.Form["Clave"];
 
             Usuario usuario =await Usuario.Login(nombreUsuario, clave);
-
             if (usuario != null)
-               return Redirect("https://localhost:44368/Home/Index");
-            else
-                return Redirect("https://localhost:44368/Usuario/LoginOpen");
+            {
+                HttpContext.Session.SetString("nombre", usuario.nombre);
+                HttpContext.Session.SetInt32("tipoUsuario", usuario.tipoUsuario);
+
+                if (usuario.tipoUsuario.Equals(1))
+                    return Redirect("https://localhost:44368/Home/Index");
+                //else if (usuario.tipoUsuario.Equals(2))
+                //    return Redirect("https://localhost:44368/NormalUserHome/Index");
+            }
+
+            return Redirect("https://localhost:44368/Usuario/LoginOpen");
         }
 
     }
