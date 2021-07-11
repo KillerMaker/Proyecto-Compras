@@ -4,39 +4,36 @@
     ViewData["Title"] = "InsertarOpen";
 }
 
-<h1>InsertarOpen</h1>
-
-<h4>Usuario</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<h1 style=" text-align: center; margin-bottom:-4rem;">ADM Compras</h1>
+<div class="formulario">
+    <fieldset class="field">
+        <legend>Registrarse</legend>
         <form asp-action="InsertarSend">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="nombre" class="control-label">Nombre de Usuario</label>
+                <label asp-for="nombre" class="control-label" style="font-weight: bold; color:white;">Nombre de Usuario</label>
                 <input asp-for="nombre" class="form-control" />
                 <span asp-validation-for="nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="clave" class="control-label">Clave</label>
+                <label asp-for="clave" class="control-label" style="font-weight: bold; color:white;">Contraseña</label>
                 <input asp-for="clave" class="form-control" />
                 <span asp-validation-for="clave" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="clave" class="control-label">Confirmar Clave</label>
+                <label asp-for="clave" class="control-label" style="font-weight: bold; color:white;">Confirmar Contraseña</label>
                 <input asp-for="clave" name="ConfirmarClave" class="form-control" />
                 <span asp-validation-for="clave" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Registrarse" class="btn btn-success" />
+                <a asp-action="SelectShow" class="btn btn-secondary">Back to List</a>
             </div>
         </form>
-    </div>
+     </fieldset>
 </div>
 
-<div>
-    <a asp-action="SelectShow">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

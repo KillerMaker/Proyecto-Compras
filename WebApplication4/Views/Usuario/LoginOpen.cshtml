@@ -4,35 +4,33 @@
     ViewData["Title"] = "LoginOpen";
 }
 
-<h1>LoginOpen</h1>
+<h1 style=" text-align: center; margin-bottom:-4rem;">ADM Compras</h1>
 
-<h4>Usuario</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="formulario">
+    <fieldset class="field">
+        <legend>Iniciar Sesion</legend>
         <form asp-action="LoginSend">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
-                <label asp-for="nombre" class="control-label">Nombre Usuario</label>
+                <label asp-for="nombre" class="control-label" style="font-weight: bold; color:white;">Nombre Usuario</label>
                 <input asp-for="nombre" name="NombreUsuario" class="form-control" />
                 <span asp-validation-for="nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="clave" class="control-label">Clave</label>
+                <label asp-for="clave" class="control-label" style="font-weight: bold; color:white;">Contraseña</label>
                 <input asp-for="clave" Clave class="form-control" />
                 <span asp-validation-for="clave" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Iniciar Sesion" class="btn btn-success" />
+                <a class="btn btn-primary" asp-action="InsertarOpen">Registrarse</a>
             </div>
         </form>
-    </div>
+    </fieldset>
 </div>
 
-<div>
-    <a asp-action="InsertarOpen">Registrarse</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
