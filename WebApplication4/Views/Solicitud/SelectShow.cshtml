@@ -1,0 +1,70 @@
+﻿@model IEnumerable<WebApplication4.Models.CSolicitud>
+
+@{
+    ViewData["Title"] = "SelectShow";
+}
+
+<h1>SelectShow</h1>
+
+<p>
+    <a asp-action="InsertarOpen">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Empleado
+            </th>
+            <th>
+                Fecha
+            </th>
+            <th>
+                Articulo
+            </th>
+            <th>
+                Cantidad
+            </th>
+            <th>
+               Unidad de Medida
+            </th>
+            <th>
+                Estado
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombreEmpleado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombreArticulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cantidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombreUnidadMedida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombreEstado)
+            </td>
+            <td>
+                <a asp-action="ActualizarOpen" asp-route-id="@item.id" class="btn btn-primary">Editar</a> |
+                <a asp-action="EliminarOpen" asp-route-id="@item.id" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

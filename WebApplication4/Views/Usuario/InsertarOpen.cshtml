@@ -17,17 +17,17 @@
             </div>
             <div class="form-group">
                 <label asp-for="clave" class="control-label" style="font-weight: bold; color:white;">Contraseña</label>
-                <input asp-for="clave" class="form-control" />
+                <input asp-for="clave" type="password" class="form-control" />
                 <span asp-validation-for="clave" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="clave" class="control-label" style="font-weight: bold; color:white;">Confirmar Contraseña</label>
-                <input asp-for="clave" name="ConfirmarClave" class="form-control" />
+                <input asp-for="clave" type="password" name="ConfirmarClave" class="form-control" />
                 <span asp-validation-for="clave" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Registrarse" class="btn btn-success" />
-                <a asp-action="SelectShow" class="btn btn-secondary">Back to List</a>
+                <a asp-action="LoginOpen" class="btn btn-secondary">Volver</a>
             </div>
         </form>
      </fieldset>
