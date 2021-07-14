@@ -4,16 +4,19 @@
     ViewData["Title"] = "ActualizarOpen";
 }
 
-<h1>ActualizarOpen</h1>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+<br />
+<br />
+<h1>Actualizar Orden de Compra</h1>
 
-<h4>COrdenCompra</h4>
 <hr />
-<div class="row">
+<div class="row Card__container--float-low">
     <div class="col-md-4">
         <form asp-action="ActualizarSend" asp-route-id="@ViewData["ID"]">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="solicitud" class="control-label"></label>
+                <label asp-for="solicitud" class="control-label" style="color:white"></label>
                 <select asp-for="solicitud" class="form-control">
                     @using (MySqlDataReader reader = await CEntidad.ExecuteReader("SELECT * FROM SOLICITUD"))
                     {
@@ -27,12 +30,12 @@
                 <span asp-validation-for="solicitud" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="fecha" class="control-label"></label>
-                <input asp-for="fecha" class="form-control"  type="date" value="@DateTime.Now"/>
+                <label asp-for="fecha" class="control-label" style="color:white"></label>
+                <input asp-for="fecha" class="form-control" type="date" value="@DateTime.Now" />
                 <span asp-validation-for="fecha" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="articulo" class="control-label"></label>
+                <label asp-for="articulo" class="control-label" style="color:white"></label>
                 <select asp-for="articulo" class="form-control">
                     @using (MySqlDataReader reader = await CEntidad.ExecuteReader("SELECT * FROM ARTICULO"))
                     {
@@ -46,12 +49,12 @@
                 <span asp-validation-for="articulo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="cantidad" class="control-label"></label>
+                <label asp-for="cantidad" class="control-label" style="color:white"></label>
                 <input asp-for="cantidad" class="form-control" type="number" />
                 <span asp-validation-for="cantidad" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="unidadMedida" class="control-label"></label>
+                <label asp-for="unidadMedida" class="control-label" style="color:white"></label>
                 <select asp-for="unidadMedida" class="form-control">
                     @using (MySqlDataReader reader = await CEntidad.ExecuteReader("SELECT * FROM UNIDAD_MEDIDA"))
                     {
@@ -65,7 +68,7 @@
                 <span asp-validation-for="unidadMedida" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="marca" class="control-label"></label>
+                <label asp-for="marca" class="control-label" style="color:white"></label>
                 <select asp-for="marca" class="form-control">
                     @using (MySqlDataReader reader = await CEntidad.ExecuteReader("SELECT * FROM MARCA"))
                     {
@@ -79,12 +82,12 @@
                 <span asp-validation-for="marca" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="costoUnitario" class="control-label"></label>
-                <input asp-for="costoUnitario" class="form-control" type="number"/>
+                <label asp-for="costoUnitario" class="control-label" style="color:white"></label>
+                <input asp-for="costoUnitario" class="form-control" type="number" />
                 <span asp-validation-for="costoUnitario" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="estado" class="control-label"></label>
+                <label asp-for="estado" class="control-label" style="color:white"></label>
                 <select asp-for="estado" class="form-control">
                     @using (MySqlDataReader reader = await CEntidad.ExecuteReader("SELECT * FROM ESTADO"))
                     {
@@ -98,9 +101,18 @@
                 <span asp-validation-for="estado" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" style="width:100%; height:3rem" />
             </div>
         </form>
+    </div>
+    <div class="col-md-8">
+        <div style="margin: 8rem 0rem 0rem 10rem" class="IconRefresh">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-refresh" width="100%" height="100%" viewBox="0 0 24 24" stroke-width="1.5" stroke="#0275d8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+                <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+            </svg>
+        </div>
     </div>
 </div>
 <div>

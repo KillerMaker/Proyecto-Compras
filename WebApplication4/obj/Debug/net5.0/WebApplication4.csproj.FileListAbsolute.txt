@@ -450,7 +450,6 @@ C:\Users\joser\Source\Repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Ra
 C:\Users\joser\Source\Repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\joser\Source\Repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\joser\Source\Repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\UnidadMedida\ActualizarOpen.cshtml.g.cs
-C:\Users\joser\Source\Repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\UnidadMedida\EliminarOpen.cshtml.g.cs
 C:\Users\joser\Source\Repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\UnidadMedida\InsertarOpen.cshtml.g.cs
 C:\Users\joser\Source\Repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\UnidadMedida\SelectShow.cshtml.g.cs
 C:\Users\joser\Source\Repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\View.cshtml.g.cs
@@ -962,3 +961,14 @@ C:\Users\emman\source\repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Ra
 C:\Users\emman\source\repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\OrdenCompra\InsertarOpen.cshtml.g.cs
 C:\Users\emman\source\repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\OrdenCompra\ActualizarOpen.cshtml.g.cs
 C:\Users\emman\source\repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\OrdenCompra\EliminarOpen.cshtml.g.cs
+C:\Users\joser\source\repos\Proyecto-Compras\WebApplication4\bin\Debug\net5.0\RestSharp.dll
+C:\Users\joser\source\repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\OrdenCompra\ActualizarOpen.cshtml.g.cs
+C:\Users\joser\source\repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\OrdenCompra\EliminarOpen.cshtml.g.cs
+C:\Users\joser\source\repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\OrdenCompra\InsertarOpen.cshtml.g.cs
+C:\Users\joser\source\repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\OrdenCompra\SelectShow.cshtml.g.cs
+C:\Users\joser\source\repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\Solicitud\ActualizarOpen.cshtml.g.cs
+C:\Users\joser\source\repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\Solicitud\EliminarOpen.cshtml.g.cs
+C:\Users\joser\source\repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\Solicitud\InsertarOpen.cshtml.g.cs
+C:\Users\joser\source\repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\Solicitud\SelectShow.cshtml.g.cs
+C:\Users\joser\source\repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\Usuario\InsertarOpen.cshtml.g.cs
+C:\Users\joser\source\repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\Usuario\LoginOpen.cshtml.g.cs

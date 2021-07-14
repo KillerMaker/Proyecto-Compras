@@ -4,16 +4,19 @@
     ViewData["Title"] = "ActualizarOpen";
 }
 
-<h1>ActualizarOpen</h1>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+<br />
+<br />
+<h1>Actualizar Solicitud</h1>
 
-<h4>CSolicitud</h4>
 <hr />
-<div class="row">
+<div class="row Card__container--float-low">
     <div class="col-md-4">
         <form asp-action="ActualizarSend" asp-route-id="@ViewData["id"]">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="empleado" class="control-label">Empleado</label>
+                <label asp-for="empleado" class="control-label" style="color:white">Empleado</label>
                 <select asp-for="empleado" class="form-control">
                     @using (MySqlDataReader reader = await CEntidad.ExecuteReader("SELECT * FROM EMPLEADO"))
                     {
@@ -27,12 +30,12 @@
                 <span asp-validation-for="empleado" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="fecha" class="control-label">Fecha</label>
+                <label asp-for="fecha" class="control-label" style="color:white">Fecha</label>
                 <input asp-for="fecha" type="date" value="@DateTime.Now" class="form-control" />
                 <span asp-validation-for="fecha" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="articulo" class="control-label">Articulo</label>
+                <label asp-for="articulo" class="control-label" style="color:white">Articulo</label>
                 <select asp-for="articulo" class="form-control">
                     @using (MySqlDataReader reader = await CEntidad.ExecuteReader("SELECT * FROM ARTICULO"))
                     {
@@ -46,12 +49,12 @@
                 <span asp-validation-for="articulo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="cantidad" class="control-label">Cantidad</label>
+                <label asp-for="cantidad" class="control-label" style="color:white">Cantidad</label>
                 <input asp-for="cantidad" class="form-control" />
                 <span asp-validation-for="cantidad" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="unidadMedida" class="control-label">Unidad de Medida</label>
+                <label asp-for="unidadMedida" class="control-label" style="color:white">Unidad de Medida</label>
                 <select asp-for="unidadMedida" class="form-control">
                     @using (MySqlDataReader reader = await CEntidad.ExecuteReader("SELECT * FROM UNIDAD_MEDIDA"))
                     {
@@ -65,7 +68,7 @@
                 <span asp-validation-for="unidadMedida" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="estado" class="control-label">Estado</label>
+                <label asp-for="estado" class="control-label" style="color:white">Estado</label>
                 <select asp-for="estado" class="form-control">
                     @using (MySqlDataReader reader = await CEntidad.ExecuteReader("SELECT * FROM ESTADO"))
                     {
@@ -79,9 +82,18 @@
                 <span asp-validation-for="estado" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" style="width:100%; height:3rem" />
             </div>
         </form>
+    </div>
+    <div class="col-md-8">
+        <div style="margin: 4rem 0rem 0rem 10rem" class="IconRefresh">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-refresh" width="90%" height="90%" viewBox="0 0 24 24" stroke-width="1.5" stroke="#0275d8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" />
+                <path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" />
+            </svg>
+        </div>
     </div>
 </div>
 

@@ -7103,28 +7103,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\emman\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\joser\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\emman\\source\\repos\\Proyecto-Compras\\WebApplication4\\WebApplication4.csproj",
+      "projectUniqueName": "C:\\Users\\joser\\source\\repos\\Proyecto-Compras\\WebApplication4\\WebApplication4.csproj",
       "projectName": "WebApplication4",
-      "projectPath": "C:\\Users\\emman\\source\\repos\\Proyecto-Compras\\WebApplication4\\WebApplication4.csproj",
-      "packagesPath": "C:\\Users\\emman\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\emman\\source\\repos\\Proyecto-Compras\\WebApplication4\\obj\\",
+      "projectPath": "C:\\Users\\joser\\source\\repos\\Proyecto-Compras\\WebApplication4\\WebApplication4.csproj",
+      "packagesPath": "C:\\Users\\joser\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\joser\\source\\repos\\Proyecto-Compras\\WebApplication4\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\emman\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\joser\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
