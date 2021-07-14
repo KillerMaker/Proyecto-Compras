@@ -55,11 +55,9 @@ namespace WebApplication4.Models
                         };
                         marcas.Add(marca);
                     }
-
                     await _connection.CloseAsync();
                     return marcas;
                 }
-               
             }
             catch (Exception ex)
             {

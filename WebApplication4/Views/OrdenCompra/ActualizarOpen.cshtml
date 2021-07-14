@@ -1,0 +1,112 @@
+﻿@model WebApplication4.Models.COrdenCompra
+@using MySql.Data.MySqlClient;
+@{
+    ViewData["Title"] = "ActualizarOpen";
+}
+
+<h1>ActualizarOpen</h1>
+
+<h4>COrdenCompra</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ActualizarSend" asp-route-id="@ViewData["ID"]">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="solicitud" class="control-label"></label>
+                <select asp-for="solicitud" class="form-control">
+                    @using (MySqlDataReader reader = await CEntidad.ExecuteReader("SELECT * FROM SOLICITUD"))
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            <option value="@reader["ID"]">@reader["ID"]</option>
+                        }
+                        await CEntidad._connection.CloseAsync();
+                    }
+                </select>
+                <span asp-validation-for="solicitud" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="fecha" class="control-label"></label>
+                <input asp-for="fecha" class="form-control"  type="date" value="@DateTime.Now"/>
+                <span asp-validation-for="fecha" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="articulo" class="control-label"></label>
+                <select asp-for="articulo" class="form-control">
+                    @using (MySqlDataReader reader = await CEntidad.ExecuteReader("SELECT * FROM ARTICULO"))
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            <option value="@reader["ID"]">@reader["DESCRIPCION"]</option>
+                        }
+                        await CEntidad._connection.CloseAsync();
+                    }
+                </select>
+                <span asp-validation-for="articulo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="cantidad" class="control-label"></label>
+                <input asp-for="cantidad" class="form-control" type="number" />
+                <span asp-validation-for="cantidad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="unidadMedida" class="control-label"></label>
+                <select asp-for="unidadMedida" class="form-control">
+                    @using (MySqlDataReader reader = await CEntidad.ExecuteReader("SELECT * FROM UNIDAD_MEDIDA"))
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            <option value="@reader["ID"]">@reader["DESCRIPCION"]</option>
+                        }
+                        await CEntidad._connection.CloseAsync();
+                    }
+                </select>
+                <span asp-validation-for="unidadMedida" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="marca" class="control-label"></label>
+                <select asp-for="marca" class="form-control">
+                    @using (MySqlDataReader reader = await CEntidad.ExecuteReader("SELECT * FROM MARCA"))
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            <option value="@reader["ID"]">@reader["DESCRIPCION"]</option>
+                        }
+                        await CEntidad._connection.CloseAsync();
+                    }
+                </select>
+                <span asp-validation-for="marca" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="costoUnitario" class="control-label"></label>
+                <input asp-for="costoUnitario" class="form-control" type="number"/>
+                <span asp-validation-for="costoUnitario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="estado" class="control-label"></label>
+                <select asp-for="estado" class="form-control">
+                    @using (MySqlDataReader reader = await CEntidad.ExecuteReader("SELECT * FROM ESTADO"))
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            <option value="@reader["ID"]">@reader["NOMBRE"]</option>
+                        }
+                        await CEntidad._connection.CloseAsync();
+                    }
+                </select>
+                <span asp-validation-for="estado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="SelectShow">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
