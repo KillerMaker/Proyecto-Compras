@@ -9,6 +9,7 @@ namespace WebApplication4.Controllers
 {
     public class SolicitudController : Controller,IController
     {
+        private static string query;
         public ActionResult ActualizarOpen(int id)
         {
             ViewData["id"] = id;
@@ -73,6 +74,16 @@ namespace WebApplication4.Controllers
             return RedirectToAction("SelectShow");
         }
 
-        public async Task<ActionResult> SelectShow() => View(await CSolicitud.Select(null));
+        public async Task<ActionResult> SelectShow() => View(await CSolicitud.Select(query));
+
+        public ActionResult SelectShowSearch()
+        {
+            string query = " WHERE ";
+            query += Request.Form["Columnas"].ToString() + " ";
+            query += Request.Form["Operadores"].ToString() + " ";
+            query += "'" + Request.Form["Criterio"].ToString() + "';";
+            SolicitudController.query = query;
+            return RedirectToAction("SelectShow");
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace WebApplication4.Controllers
 {
     public class MarcaController : Controller,IController
     {
+        private static string query;
         public ActionResult ActualizarOpen(int id)
         {
             ViewData["id"] = id;
@@ -47,6 +48,15 @@ namespace WebApplication4.Controllers
             return Redirect("https://localhost:44368/Marca/SelectShow");
         }
 
-        public async Task<ActionResult> SelectShow() => View(await CMarca.Select());
+        public async Task<ActionResult> SelectShow() => View(await CMarca.Select(query));
+        public ActionResult SelectShowSearch()
+        {
+            string query = " WHERE ";
+            query += Request.Form["Columnas"].ToString() + " ";
+            query += Request.Form["Operadores"].ToString() + " ";
+            query += "'" + Request.Form["Criterio"].ToString() + "';";
+            MarcaController.query = query;
+            return RedirectToAction("SelectShow");
+        }
     }
 }

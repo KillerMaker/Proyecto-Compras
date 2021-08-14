@@ -9,6 +9,27 @@
 <p>
     <a asp-action="InsertarOpen" class="btn btn-success">Crear Nuevo</a>
 </p>
+<form asp-action="SelectShowSearch">
+    <select name="Columnas">
+        <option value="ID">Identificador</option>
+        <option value="DESCRIPCION">Descripcion</option>
+        <option value="M_MARCA">Marca</option>
+        <option value="UM_NOMBRE">Unidad de medida</option>
+        <option value="EXISTENCIA">Existencia</option>
+        <option value="E_NOMBRE">Estado</option>
+    </select>
+    <select name="Operadores">
+        <option value="=">Igual</option>
+        <option value="!=">Diferente</option>
+        <option value="<">Menor</option>
+        <option value="<=">Menor o Igual</option>
+        <option value=">">Mayor</option>
+        <option value=">=">Mayor o Igual</option>
+    </select>
+    <input type="text" placeholder="Inserte su criterio de busqueda" name="Criterio"/>
+
+    <button type="submit" name="btnBuscar">Buscar</button>
+</form>
 <table class="table table-dark table-striped table-hover">
     <thead>
         <tr>

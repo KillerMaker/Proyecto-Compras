@@ -12,6 +12,7 @@ namespace WebApplication4.Controllers
 {
     public class UsuarioController : Controller, IController
     {
+        private static string query;
         public ActionResult ActualizarOpen(int id)
         {
             ViewData["id"] = id;
@@ -78,7 +79,18 @@ namespace WebApplication4.Controllers
             }
         }
 
-        public async Task<ActionResult> SelectShow() => View(await Usuario.Select());
+        public async Task<ActionResult> SelectShow() => View(await Usuario.Select(query));
+
+        public ActionResult SelectShowSearch()
+        {
+            string query = " WHERE ";
+            query += Request.Form["Columnas"].ToString() + " ";
+            query += Request.Form["Operadores"].ToString() + " ";
+            query += "'" + Request.Form["Criterio"].ToString() + "';";
+            UsuarioController.query = query;
+            return RedirectToAction("SelectShow");
+        }
+
         public ActionResult LoginOpen() 
         {
             HttpContext.Session.SetString("nombre", "");

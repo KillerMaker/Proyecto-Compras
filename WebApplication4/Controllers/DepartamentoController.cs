@@ -9,6 +9,7 @@ namespace WebApplication4.Controllers
 {
     public class DepartamentoController : Controller,IController
     {
+        private static string query;
         public ActionResult InsertarOpen() => View();
         public async Task<ActionResult> InsertarSend()
         {
@@ -56,6 +57,16 @@ namespace WebApplication4.Controllers
             await CDepartamento.Delete(id);
             return Redirect("https://localhost:44368/Departamento/SelectShow");
         }
-        public async Task<ActionResult> SelectShow() => View(await CDepartamento.Select());
+        public async Task<ActionResult> SelectShow() => View(await CDepartamento.Select(query));
+
+        public ActionResult SelectShowSearch()
+        {
+            string query = " WHERE ";
+            query += Request.Form["Columnas"].ToString() + " ";
+            query += Request.Form["Operadores"].ToString() + " ";
+            query += "'" + Request.Form["Criterio"].ToString() + "';";
+            DepartamentoController.query = query;
+            return RedirectToAction("SelectShow");
+        }
     }
 }

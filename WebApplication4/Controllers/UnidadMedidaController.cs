@@ -9,6 +9,7 @@ namespace WebApplication4.Controllers
 {
     public class UnidadMedidaController : Controller, IController
     {
+        private static string query;
         public ActionResult ActualizarOpen(int id)
         {
             ViewData["id"] = id;
@@ -48,7 +49,17 @@ namespace WebApplication4.Controllers
             return Redirect("https://localhost:44368/UnidadMedida/SelectShow");
         }
 
-        public async Task<ActionResult> SelectShow() => View(await CUnidadMedida.Select());
+        public async Task<ActionResult> SelectShow() => View(await CUnidadMedida.Select(query));
+
+        public ActionResult SelectShowSearch()
+        {
+            string query = " WHERE ";
+            query += Request.Form["Columnas"].ToString() + " ";
+            query += Request.Form["Operadores"].ToString() + " ";
+            query += "'" + Request.Form["Criterio"].ToString() + "';";
+            UnidadMedidaController.query = query;
+            return RedirectToAction("SelectShow");
+        }
 
     }
 }

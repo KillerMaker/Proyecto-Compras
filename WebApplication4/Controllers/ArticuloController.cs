@@ -10,6 +10,7 @@ namespace WebApplication4.Controllers
 {
     public class ArticuloController : Controller, IController
     {
+        private static string query = "";
         public ActionResult ActualizarOpen(int id)
         {
             ViewData["id"] = id;
@@ -69,6 +70,19 @@ namespace WebApplication4.Controllers
             return Redirect("https://localhost:44368/Articulo/SelectShow");
         }
 
-        public async Task<ActionResult> SelectShow() => View(await CArticulo.Select());
+        public async Task<ActionResult> SelectShow()
+        {
+            return View(await CArticulo.Select(query));
+        }
+            
+        public ActionResult SelectShowSearch()
+        {
+            string query=" WHERE ";
+            query += Request.Form["Columnas"].ToString()+" ";
+            query += Request.Form["Operadores"].ToString() + " ";
+            query +="'"+ Request.Form["Criterio"].ToString()+ "';";
+            ArticuloController.query = query;
+            return RedirectToAction("SelectShow");
+        }
     }
 }
