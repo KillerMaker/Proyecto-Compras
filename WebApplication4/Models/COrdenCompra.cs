@@ -38,8 +38,7 @@ namespace WebApplication4.Models
             this.estado = estado;
         }
         public async override Task<int> Insert() =>
-            await ExecuteCommand(@"INSERT INTO ORDEN_COMPRA(SOLICITUD,FECHA,ARTICULO,CANTIDAD,UNIDAD_MEDIDA,MARCA,COSTO_UNITARIO,ESTADO)
-                                        VALUES(@SOLICITUD,@FECHA,@ARTICULO,@CANTIDAD,@UNIDAD_MEDIDA,@MARCA,@COSTO_UNITARIO,@ESTADO);", SqlLlenaParametros());
+            await ExecuteCommand(@"CALL INSERTA_ORDEN_COMPRA (@SOLICITUD,@FECHA,@ARTICULO,@CANTIDAD,@UNIDAD_MEDIDA,@MARCA,@COSTO_UNITARIO,@ESTADO);", SqlLlenaParametros());
 
         public async override Task<int> Update() =>
             await ExecuteCommand(@"UPDATE ORDEN_COMPRA SET SOLICITUD=@SOLICITUD, FECHA=@FECHA, ARTICULO=@ARTICULO, CANTIDAD=@CANTIDAD,
