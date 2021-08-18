@@ -54,6 +54,11 @@ namespace WebApplication4.Controllers
             return RedirectToAction("SelectShow");
         }
 
+        public ActionResult Exportar(IEnumerable<CEntidad> entidades)
+        {
+            throw new NotImplementedException();
+        }
+
         public ActionResult InsertarOpen() => View();
 
         public async Task<ActionResult> InsertarSend()

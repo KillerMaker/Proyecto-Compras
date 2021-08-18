@@ -10,6 +10,8 @@ namespace WebApplication4.Controllers
     public class DepartamentoController : Controller,IController
     {
         private static string query;
+        private static List<CDepartamento> lista;
+
         public ActionResult InsertarOpen() => View();
         public async Task<ActionResult> InsertarSend()
         {
@@ -57,7 +59,11 @@ namespace WebApplication4.Controllers
             await CDepartamento.Delete(id);
             return Redirect("https://localhost:44368/Departamento/SelectShow");
         }
-        public async Task<ActionResult> SelectShow() => View(await CDepartamento.Select(query));
+        public async Task<ActionResult> SelectShow()
+        {
+            lista = await CDepartamento.Select(query);
+            return View(lista);
+        }
 
         public ActionResult SelectShowSearch()
         {
@@ -67,6 +73,13 @@ namespace WebApplication4.Controllers
             query += "'" + Request.Form["Criterio"].ToString() + "';";
             DepartamentoController.query = query;
             return RedirectToAction("SelectShow");
+        }
+
+        public ActionResult Exportar(IEnumerable<CEntidad> entidades)
+        {
+            Excel e = new Excel();
+            e.Write(lista);
+            return Redirect("https://localhost:44368/Articulo/SelectShow");
         }
     }
 }

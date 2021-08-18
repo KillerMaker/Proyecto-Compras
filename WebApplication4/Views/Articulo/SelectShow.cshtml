@@ -26,9 +26,12 @@
         <option value=">">Mayor</option>
         <option value=">=">Mayor o Igual</option>
     </select>
-    <input type="text" placeholder="Inserte su criterio de busqueda" name="Criterio"/>
+    <input type="text" placeholder="Inserte su criterio de busqueda"  name="Criterio"/>
 
-    <button type="submit" name="btnBuscar">Buscar</button>
+    <button type="submit" name="btnBuscar"  class="btn-primary">Buscar</button>
+</form>
+<form asp-action="Exportar">
+    <button type="submit" class="btn-primary">Exportar</button>
 </form>
 <table class="table table-dark table-striped table-hover">
     <thead>

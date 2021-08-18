@@ -7,7 +7,7 @@ using System.Data;
 
 namespace WebApplication4.Models
 {
-    public class CDepartamento : CEntidad
+    public class CDepartamento : CEntidad,IEnumerable<KeyValuePair<string,object>>
     {
         //Atributos de constructor
         public int? id { get; set; }

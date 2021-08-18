@@ -40,6 +40,11 @@ namespace WebApplication4.Controllers
             return Redirect("https://localhost:44368/UnidadMedida/SelectShow");
         }
 
+        public ActionResult Exportar(IEnumerable<CEntidad> entidades)
+        {
+            throw new NotImplementedException();
+        }
+
         public ActionResult InsertarOpen() => View();
 
         public async Task<ActionResult> InsertarSend()

@@ -10,6 +10,8 @@ namespace WebApplication4.Controllers
     public class EmpleadoController : Controller,IController
     {
         private static string query;
+        private static List<CEmpleado> lista;
+
         public ActionResult InsertarOpen() => View();
         public async Task<ActionResult>InsertarSend()
         {
@@ -58,7 +60,11 @@ namespace WebApplication4.Controllers
             await CEmpleado.Delete(id);
             return Redirect("https://localhost:44368/Empleado/SelectShow");
         }
-        public async Task<ActionResult> SelectShow() => View(await CEmpleado.Select(query));
+        public async Task<ActionResult> SelectShow()
+        {
+            lista = await CEmpleado.Select(query);
+            return View(lista);
+        }
         public ActionResult SelectShowSearch()
         {
             string query = " WHERE ";
@@ -69,5 +75,11 @@ namespace WebApplication4.Controllers
             return RedirectToAction("SelectShow");
         }
 
+        public ActionResult Exportar(IEnumerable<CEntidad> entidades)
+        {
+            Excel e = new Excel();
+            e.Write(lista);
+            return Redirect("https://localhost:44368/Articulo/SelectShow");
+        }
     }
 }

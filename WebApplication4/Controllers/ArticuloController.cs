@@ -11,6 +11,7 @@ namespace WebApplication4.Controllers
     public class ArticuloController : Controller, IController
     {
         private static string query = "";
+        private static List<CArticulo> lista;
         public ActionResult ActualizarOpen(int id)
         {
             ViewData["id"] = id;
@@ -52,6 +53,13 @@ namespace WebApplication4.Controllers
             return Redirect("https://localhost:44368/Articulo/SelectShow");
         }
 
+        public ActionResult Exportar(IEnumerable<CEntidad> entidades)
+        {
+            Excel e = new Excel();
+            e.Write(lista);
+            return Redirect("https://localhost:44368/Articulo/SelectShow");
+        }
+
         public ActionResult InsertarOpen() => View();
 
         public async Task<ActionResult> InsertarSend()
@@ -72,7 +80,8 @@ namespace WebApplication4.Controllers
 
         public async Task<ActionResult> SelectShow()
         {
-            return View(await CArticulo.Select(query));
+            lista= await CArticulo.Select(query);
+            return View(lista);
         }
             
         public ActionResult SelectShowSearch()

@@ -39,6 +39,12 @@ namespace WebApplication4.Controllers
            await CMarca.Delete(id);
             return Redirect("https://localhost:44368/Marca/SelectShow");
         }
+
+        public ActionResult Exportar(IEnumerable<CEntidad> entidades)
+        {
+            throw new NotImplementedException();
+        }
+
         public ActionResult InsertarOpen() => View();
 
         public async Task<ActionResult> InsertarSend()

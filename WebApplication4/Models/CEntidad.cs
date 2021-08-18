@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -9,7 +10,7 @@ using MySql.Data.MySqlClient;
 
 namespace WebApplication4.Models
 {
-    public abstract class CEntidad
+    public abstract class CEntidad:IEnumerable<KeyValuePair<string,object>>
     {
         public static MySqlConnection _connection = new MySqlConnection("Data Source=localhost; uid=root; pwd=Archipielago1@; database=compras");
         public abstract Task<int> Insert();
@@ -56,6 +57,16 @@ namespace WebApplication4.Models
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public virtual IEnumerator<KeyValuePair<string, object>> GetEnumerator()
+        {
+           return GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 

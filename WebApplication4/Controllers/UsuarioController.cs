@@ -116,6 +116,10 @@ namespace WebApplication4.Controllers
                 return Redirect("https://localhost:44368/Usuario/LoginOpen");
         }
 
+        public ActionResult Exportar(IEnumerable<CEntidad> entidades)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

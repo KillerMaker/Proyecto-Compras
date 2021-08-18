@@ -66,5 +66,10 @@ namespace WebApplication4.Controllers
             ProveedorController.query = query;
             return RedirectToAction("SelectShow");
         }
+
+        public ActionResult Exportar(IEnumerable<CEntidad> entidades)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -15,5 +15,7 @@ namespace WebApplication4.Models
         public Task<ActionResult> EliminarSend(int id);
         public Task<ActionResult> ActualizarSend(int id);
         public Task<ActionResult> SelectShow();
+        public ActionResult SelectShowSearch();
+        public ActionResult Exportar(IEnumerable<CEntidad>entidades);
     }
 }

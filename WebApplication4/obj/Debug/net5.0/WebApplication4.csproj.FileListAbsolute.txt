@@ -972,3 +972,5 @@ C:\Users\joser\source\repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Ra
 C:\Users\joser\source\repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\Solicitud\SelectShow.cshtml.g.cs
 C:\Users\joser\source\repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\Usuario\InsertarOpen.cshtml.g.cs
 C:\Users\joser\source\repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Razor\Views\Usuario\LoginOpen.cshtml.g.cs
+C:\Users\emman\source\repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\Interop.Microsoft.Office.Interop.Excel.dll
+C:\Users\emman\source\repos\Proyecto-Compras\WebApplication4\obj\Debug\net5.0\WebApplication4.csproj.ResolveComReference.cache

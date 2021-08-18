@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.Collections;
 
 namespace WebApplication4.Models
 {
-    public class CArticulo : CEntidad
+    public class CArticulo : CEntidad,IEnumerable<KeyValuePair<string,object>>
     {
         //atributos de constructor
         public int? id { get; set; }
@@ -124,5 +125,16 @@ namespace WebApplication4.Models
 
             return parametros;
         }
+
+        public override IEnumerator<KeyValuePair<string,object>> GetEnumerator()
+        {
+            yield return new KeyValuePair<string, object>("ID", id);
+            yield return new KeyValuePair<string, object>("Descripcion", descripcion);
+            yield return new KeyValuePair<string, object>("Marca", nombreMarca);
+            yield return new KeyValuePair<string, object>("Unidad de Medida", nombreUnidadMedida);
+            yield return new KeyValuePair<string, object>("Existencia", existencia);
+            yield return new KeyValuePair<string, object>("Estado", nombreEstado);
+        }
+
     }
 }
