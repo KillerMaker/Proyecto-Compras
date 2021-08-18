@@ -11,6 +11,7 @@ namespace WebApplication4.Controllers
     {
         private static string query;
         private static List<CUnidadMedida> lista;
+        private static string errorMessage;
         public ActionResult ActualizarOpen(int id)
         {
             ViewData["id"] = id;
@@ -19,58 +20,117 @@ namespace WebApplication4.Controllers
 
         public async Task<ActionResult> ActualizarSend(int id)
         {
-            CUnidadMedida unidadMedida = new CUnidadMedida(id,Request.Form["Descripcion"], int.Parse(Request.Form["Estado"]));
-            await unidadMedida.Update();
-            return Redirect("https://localhost:44368/UnidadMedida/SelectShow");
+            try
+            {
+                CUnidadMedida unidadMedida = new CUnidadMedida(id, Request.Form["Descripcion"], int.Parse(Request.Form["Estado"]));
+                await unidadMedida.Update();
+                return Redirect("https://localhost:44368/UnidadMedida/SelectShow");
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;
+                return Redirect("https://localhost:44368/UnidadMedida/ErrorView");
+            }
+            
         }
 
         public async Task<ActionResult> EliminarOpen(int id)
         {
-            ViewData["id"] = id;
-            CUnidadMedida unidadMedida = null;
+            try
+            {
+                ViewData["id"] = id;
+                CUnidadMedida unidadMedida = null;
 
-            foreach (CUnidadMedida um in await CUnidadMedida.Select($"WHERE U.ID={id}")) 
-                unidadMedida = um;
+                foreach (CUnidadMedida um in await CUnidadMedida.Select($"WHERE U.ID={id}"))
+                    unidadMedida = um;
 
-            return View(unidadMedida);
+                return View(unidadMedida);
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;
+                return Redirect("https://localhost:44368/UnidadMedida/ErrorView");
+            }
+
         }
 
         public async Task<ActionResult> EliminarSend(int id)
         {
-            await CUnidadMedida.Delete(id);
-            return Redirect("https://localhost:44368/UnidadMedida/SelectShow");
+            try
+            {
+                await CUnidadMedida.Delete(id);
+                return Redirect("https://localhost:44368/UnidadMedida/SelectShow");
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;
+                return Redirect("https://localhost:44368/UnidadMedida/ErrorView");
+            }
+        }
+
+        public ActionResult ErrorView()
+        {
+            return View(errorMessage);
         }
 
         public ActionResult Exportar(IEnumerable<CEntidad> entidades)
         {
-            Excel e = new Excel();
-            e.Write(lista);
-            return Redirect("https://localhost:44368/UnidadMedida/SelectShow");
+            try
+            {
+                Excel e = new Excel();
+                e.Write(lista);
+                return Redirect("https://localhost:44368/UnidadMedida/SelectShow");
+            }
+            catch (Exception e) 
+            { 
+                errorMessage = e.Message; return Redirect("https://localhost:44368/UnidadMedida/ErrorView"); 
+            }
         }
 
         public ActionResult InsertarOpen() => View();
 
         public async Task<ActionResult> InsertarSend()
         {
-            CUnidadMedida unidadMedida = new CUnidadMedida(null, Request.Form["Descripcion"], int.Parse(Request.Form["Estado"]));
-            await unidadMedida.Insert();
-            return Redirect("https://localhost:44368/UnidadMedida/SelectShow");
+            try
+            {
+                CUnidadMedida unidadMedida = new CUnidadMedida(null, Request.Form["Descripcion"], int.Parse(Request.Form["Estado"]));
+                await unidadMedida.Insert();
+                return Redirect("https://localhost:44368/UnidadMedida/SelectShow");
+            }
+            catch (Exception e) 
+            { 
+                errorMessage = e.Message; return Redirect("https://localhost:44368/UnidadMedida/ErrorView");
+            }
         }
 
         public async Task<ActionResult> SelectShow()
         {
-            lista = await CUnidadMedida.Select(query);
-            return View(lista);
+            try
+            {
+                lista = await CUnidadMedida.Select(query);
+                return View(lista);
+            }
+            catch (Exception e) 
+            {
+                errorMessage = e.Message; return Redirect("https://localhost:44368/UnidadMedida/ErrorView");
+            }
         }
 
         public ActionResult SelectShowSearch()
         {
-            string query = " WHERE ";
-            query += Request.Form["Columnas"].ToString() + " ";
-            query += Request.Form["Operadores"].ToString() + " ";
-            query += "'" + Request.Form["Criterio"].ToString() + "';";
-            UnidadMedidaController.query = query;
-            return RedirectToAction("SelectShow");
+            try
+            {
+                string query = " WHERE ";
+                query += Request.Form["Columnas"].ToString() + " ";
+                query += Request.Form["Operadores"].ToString() + " ";
+                query += "'" + Request.Form["Criterio"].ToString() + "';";
+                UnidadMedidaController.query = query;
+                return RedirectToAction("SelectShow");
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message; return Redirect("https://localhost:44368/UnidadMedida/ErrorView"); 
+            }
         }
 
     }

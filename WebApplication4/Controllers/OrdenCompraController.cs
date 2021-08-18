@@ -11,6 +11,8 @@ namespace WebApplication4.Controllers
     {
         private static string query;
         private static List<COrdenCompra> lista;
+        private static string errorMesage="lalalalalalalalalalal";
+
         public ActionResult ActualizarOpen(int id)
         {
             ViewData["id"] = id;
@@ -19,40 +21,71 @@ namespace WebApplication4.Controllers
 
         public async Task<ActionResult> ActualizarSend(int id)
         {
-            COrdenCompra ordenCompra = new COrdenCompra
-                (
-                    id,
-                    int.Parse(Request.Form["Solicitud"]),
-                    Request.Form["Fecha"].ToString().Replace("/", "").Replace("-", ""),
-                    int.Parse(Request.Form["Articulo"]),
-                    int.Parse(Request.Form["Cantidad"]),
-                    int.Parse(Request.Form["UnidadMedida"]),
-                    int.Parse(Request.Form["Marca"]),
-                    int.Parse(Request.Form["CostoUnitario"]),
-                    int.Parse(Request.Form["Estado"])
-                );
+            try
+            {
+                COrdenCompra ordenCompra = new COrdenCompra
+               (
+                   id,
+                   int.Parse(Request.Form["Solicitud"]),
+                   Request.Form["Fecha"].ToString().Replace("/", "").Replace("-", ""),
+                   int.Parse(Request.Form["Articulo"]),
+                   int.Parse(Request.Form["Cantidad"]),
+                   int.Parse(Request.Form["UnidadMedida"]),
+                   int.Parse(Request.Form["Marca"]),
+                   int.Parse(Request.Form["CostoUnitario"]),
+                   int.Parse(Request.Form["Estado"])
+               );
 
-            await ordenCompra.Update();
+                await ordenCompra.Update();
 
-            return RedirectToAction("SelectShow");
+                return RedirectToAction("SelectShow");
+            }
+            catch (Exception e)
+            {
+                errorMesage = e.Message;
+                return Redirect("ErrorView");
+            }
+           
         }
 
         public async Task<ActionResult> EliminarOpen(int id)
         {
-            ViewData["id"] = id;
-            COrdenCompra ordenCompra = null;
+            try
+            {
+                ViewData["id"] = id;
+                COrdenCompra ordenCompra = null;
 
-            foreach (COrdenCompra OP in await COrdenCompra.Select($"WHERE ID = {id}"))
-                ordenCompra = OP;
+                foreach (COrdenCompra OP in await COrdenCompra.Select($"WHERE ID = {id}"))
+                    ordenCompra = OP;
 
-            return View(ordenCompra);
+                return View(ordenCompra);
+            }
+            catch (Exception e)
+            {
+                errorMesage = e.Message;
+                return Redirect("ErrorView");
+            }
+
         }
 
         public async Task<ActionResult> EliminarSend(int id)
         {
-            await COrdenCompra.Delete(id);
+            try
+            {
+                await COrdenCompra.Delete(id);
+                return RedirectToAction("SelectShow");
+            }
+            catch (Exception e)
+            {
+                errorMesage = e.Message;
+                return Redirect("ErrorView");
+            }
+            
+        }
 
-            return RedirectToAction("SelectShow");
+        public ActionResult ErrorView()
+        {
+            return View(errorMesage);
         }
 
         public ActionResult Exportar(IEnumerable<CEntidad> entidades)
@@ -66,37 +99,36 @@ namespace WebApplication4.Controllers
 
         public async Task<ActionResult> InsertarSend()
         {
-            COrdenCompra ordenCompra = new COrdenCompra
-                (
-                    null,
-                    int.Parse(Request.Form["Solicitud"]),
-                    Request.Form["Fecha"].ToString().Replace("/", "").Replace("-", ""),
-                    int.Parse(Request.Form["Articulo"]),
-                    int.Parse(Request.Form["Cantidad"]),
-                    int.Parse(Request.Form["UnidadMedida"]),
-                    int.Parse(Request.Form["Marca"]),
-                    int.Parse(Request.Form["CostoUnitario"]),
-                    int.Parse(Request.Form["Estado"])
-                );
-
-            await ordenCompra.Insert();
-
-            return RedirectToAction("SelectShow");
+            try
+            {
+                COrdenCompra ordenCompra = new COrdenCompra(null, int.Parse(Request.Form["Solicitud"]), Request.Form["Fecha"].ToString().Replace("/", "").Replace("-", ""), int.Parse(Request.Form["Articulo"]), int.Parse(Request.Form["Cantidad"]), int.Parse(Request.Form["UnidadMedida"]), int.Parse(Request.Form["Marca"]), int.Parse(Request.Form["CostoUnitario"]), int.Parse(Request.Form["Estado"]));
+                await ordenCompra.Insert();
+                return RedirectToAction("SelectShow");
+            }
+            catch (Exception e) { errorMesage = e.Message; return Redirect("ErrorView"); }
         }
 
         public async Task<ActionResult> SelectShow()
         {
-            lista = await COrdenCompra.Select(query);
-            return View(lista);
+            try
+            {
+                lista = await COrdenCompra.Select(query);
+                return View(lista);
+            }
+            catch (Exception e) { errorMesage = e.Message; return Redirect("ErrorView"); }
         }
         public ActionResult SelectShowSearch()
         {
-            string query = " WHERE ";
-            query += Request.Form["Columnas"].ToString() + " ";
-            query += Request.Form["Operadores"].ToString() + " ";
-            query += "'" + Request.Form["Criterio"].ToString() + "';";
-            OrdenCompraController.query = query;
-            return RedirectToAction("SelectShow");
+            try
+            {
+                string query = " WHERE ";
+                query += Request.Form["Columnas"].ToString() + " ";
+                query += Request.Form["Operadores"].ToString() + " ";
+                query += "'" + Request.Form["Criterio"].ToString() + "';";
+                OrdenCompraController.query = query;
+                return RedirectToAction("SelectShow");
+            }
+            catch (Exception e) { errorMesage = e.Message; return Redirect("ErrorView"); }
         }
     }
 }

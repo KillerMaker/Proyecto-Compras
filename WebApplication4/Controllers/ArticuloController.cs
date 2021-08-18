@@ -12,6 +12,8 @@ namespace WebApplication4.Controllers
     {
         private static string query = "";
         private static List<CArticulo> lista;
+        private static string errorMessage;
+
         public ActionResult ActualizarOpen(int id)
         {
             ViewData["id"] = id;
@@ -20,78 +22,142 @@ namespace WebApplication4.Controllers
 
         public async Task<ActionResult> ActualizarSend(int id)
         {
-            CArticulo articulo = new CArticulo
-                (
-                    id,
-                    Request.Form["Descripcion"],
-                    int.Parse(Request.Form["Marca"]),
-                    int.Parse(Request.Form["UnidadMedida"]),
-                    int.Parse(Request.Form["Existencia"]),
-                    int.Parse(Request.Form["Estado"])
-                );
+            try
+            {
+                CArticulo articulo = new CArticulo
+               (
+                   id,
+                   Request.Form["Descripcion"],
+                   int.Parse(Request.Form["Marca"]),
+                   int.Parse(Request.Form["UnidadMedida"]),
+                   int.Parse(Request.Form["Existencia"]),
+                   int.Parse(Request.Form["Estado"])
+               );
 
-            await articulo.Update();
-            return Redirect("https://localhost:44368/Articulo/SelectShow");
+                await articulo.Update();
+                return Redirect("https://localhost:44368/Articulo/SelectShow");
+            }
+            catch(Exception e)
+            {
+                errorMessage = e.Message;
+                return Redirect("https://localhost:44368/Articulo/ErrorView");
+            }
 
         }
 
         public async Task<ActionResult> EliminarOpen(int id)
         {
-            ViewData["id"] = id;
-            CArticulo articulo = null;
+            try
+            {
+                ViewData["id"] = id;
+                CArticulo articulo = null;
 
-            foreach (CArticulo art in await CArticulo.Select($"WHERE ID={id}"))
-                articulo = art;
+                foreach (CArticulo art in await CArticulo.Select($"WHERE ID={id}"))
+                    articulo = art;
 
-            return View(articulo);
+                return View(articulo);
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;
+                return Redirect("https://localhost:44368/Articulo/ErrorView");
+            }
         }
 
         public async Task<ActionResult> EliminarSend(int id)
         {
-            await CArticulo.Delete(id);
+            try
+            {
+                await CArticulo.Delete(id);
 
-            return Redirect("https://localhost:44368/Articulo/SelectShow");
+                return Redirect("https://localhost:44368/Articulo/SelectShow");
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;
+                return Redirect("https://localhost:44368/Articulo/ErrorView");
+            }
+        }
+
+        public ActionResult ErrorView()
+        {
+            return View(errorMessage);
         }
 
         public ActionResult Exportar(IEnumerable<CEntidad> entidades)
         {
-            Excel e = new Excel();
-            e.Write(lista);
-            return Redirect("https://localhost:44368/Articulo/SelectShow");
+            try
+            {
+                Excel e = new Excel();
+                e.Write(lista);
+                return Redirect("https://localhost:44368/Articulo/SelectShow");
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;
+                return Redirect("https://localhost:44368/Articulo/ErrorView");
+            }
         }
 
         public ActionResult InsertarOpen() => View();
 
         public async Task<ActionResult> InsertarSend()
         {
-            CArticulo articulo = new CArticulo
-                (
-                    null,
-                    Request.Form["Descripcion"],
-                    int.Parse(Request.Form["Marca"]),
-                    int.Parse(Request.Form["UnidadMedida"]),
-                    int.Parse(Request.Form["Existencia"]),
-                    int.Parse(Request.Form["Estado"])
-                );
+            try
+            {
+                CArticulo articulo = new CArticulo
+               (
+                   null,
+                   Request.Form["Descripcion"],
+                   int.Parse(Request.Form["Marca"]),
+                   int.Parse(Request.Form["UnidadMedida"]),
+                   int.Parse(Request.Form["Existencia"]),
+                   int.Parse(Request.Form["Estado"])
+               );
 
-            await articulo.Insert();
-            return Redirect("https://localhost:44368/Articulo/SelectShow");
+                await articulo.Insert();
+                return Redirect("https://localhost:44368/Articulo/SelectShow");
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;
+                return Redirect("https://localhost:44368/Articulo/ErrorView");
+            }
+           
         }
 
         public async Task<ActionResult> SelectShow()
         {
-            lista= await CArticulo.Select(query);
-            return View(lista);
+            try
+            {
+                lista = await CArticulo.Select(query);
+                return View(lista);
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;
+                return Redirect("https://localhost:44368/Articulo/ErrorView");
+            }
+
         }
             
         public ActionResult SelectShowSearch()
         {
-            string query=" WHERE ";
-            query += Request.Form["Columnas"].ToString()+" ";
-            query += Request.Form["Operadores"].ToString() + " ";
-            query +="'"+ Request.Form["Criterio"].ToString()+ "';";
-            ArticuloController.query = query;
-            return RedirectToAction("SelectShow");
+            try
+            {
+                string query = " WHERE ";
+                query += Request.Form["Columnas"].ToString() + " ";
+                query += Request.Form["Operadores"].ToString() + " ";
+                query += "'" + Request.Form["Criterio"].ToString() + "';";
+                ArticuloController.query = query;
+                return RedirectToAction("SelectShow");
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;
+                return Redirect("https://localhost:44368/Articulo/ErrorView");
+            }
+
         }
     }
 }

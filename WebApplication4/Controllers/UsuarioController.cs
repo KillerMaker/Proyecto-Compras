@@ -120,6 +120,19 @@ namespace WebApplication4.Controllers
         {
             throw new NotImplementedException();
         }
+
+        public ActionResult LogOut()
+        {
+            HttpContext.Session.SetString("nombre", "");
+            HttpContext.Session.SetInt32("tipoUsuario", 0);
+            
+            return Redirect("https://localhost:44368/Usuario/LoginOpen");
+        }
+
+        public ActionResult ErrorView()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

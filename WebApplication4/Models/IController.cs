@@ -17,5 +17,7 @@ namespace WebApplication4.Models
         public Task<ActionResult> SelectShow();
         public ActionResult SelectShowSearch();
         public ActionResult Exportar(IEnumerable<CEntidad>entidades);
+
+        public ActionResult ErrorView();
     }
 }

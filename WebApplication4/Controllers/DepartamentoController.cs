@@ -81,5 +81,10 @@ namespace WebApplication4.Controllers
             e.Write(lista);
             return Redirect("https://localhost:44368/Departamento/SelectShow");
         }
+
+        public ActionResult ErrorView()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

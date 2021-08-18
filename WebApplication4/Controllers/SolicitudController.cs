@@ -11,6 +11,7 @@ namespace WebApplication4.Controllers
     {
         private static string query;
         private static List<CSolicitud> lista;
+        private static string errorMessage;
         public ActionResult ActualizarOpen(int id)
         {
             ViewData["id"] = id;
@@ -19,39 +20,61 @@ namespace WebApplication4.Controllers
 
         public async Task<ActionResult> ActualizarSend(int id)
         {
-            CSolicitud solicitud = new CSolicitud
-                (
-                    id,
-                    int.Parse(Request.Form["Empleado"]),
-                    Request.Form["Fecha"].ToString().Replace("/", "").Replace("-", ""),
-                    int.Parse(Request.Form["Articulo"]),
-                    int.Parse(Request.Form["Cantidad"]),
-                    int.Parse(Request.Form["UnidadMedida"]),
-                    int.Parse(Request.Form["Estado"])
-                );
+            try
+            {
+                CSolicitud solicitud = new CSolicitud(id, int.Parse(Request.Form["Empleado"]), Request.Form["Fecha"].ToString().Replace("/", "").Replace("-", ""), int.Parse(Request.Form["Articulo"]), int.Parse(Request.Form["Cantidad"]), int.Parse(Request.Form["UnidadMedida"]), int.Parse(Request.Form["Estado"]));
+                await solicitud.Update();
+                return RedirectToAction("SelectShow");
 
-            await solicitud.Update();
-
-            return RedirectToAction("SelectShow");
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;
+                return Redirect("ErrorView");
+            }
+            
         }
 
 
         public async Task<ActionResult> EliminarOpen(int id)
         {
-            ViewData["id"] = id;
-            CSolicitud solicitud = null;
+            try
+            {
+                ViewData["id"] = id;
+                CSolicitud solicitud = null;
 
-            foreach (CSolicitud soli in await CSolicitud.Select($"WHERE ID = {id}"))
-                solicitud = soli;
+                foreach (CSolicitud soli in await CSolicitud.Select($"WHERE ID = {id}"))
+                    solicitud = soli;
 
-            return View(solicitud);
+                return View(solicitud);
+                
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;
+                return Redirect("ErrorView");
+            }
+
 
         }
         public async Task<ActionResult> EliminarSend(int id)
         {
-            await CSolicitud.Delete(id);
+            try
+            {
+                await CSolicitud.Delete(id);
+                return RedirectToAction("SelectShow");
 
-            return RedirectToAction("SelectShow");
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;
+                return Redirect("ErrorView");
+            }
+        }
+
+        public ActionResult ErrorView()
+        {
+            return View(errorMessage);
         }
 
         public ActionResult Exportar(IEnumerable<CEntidad> entidades)
@@ -65,36 +88,47 @@ namespace WebApplication4.Controllers
 
         public async Task<ActionResult> InsertarSend()
         {
-            CSolicitud solicitud = new CSolicitud
-               (
-                   null,
-                   int.Parse(Request.Form["Empleado"]),
-                   Request.Form["Fecha"].ToString().Replace("/", "").Replace("-", ""),
-                   int.Parse(Request.Form["Articulo"]),
-                   int.Parse(Request.Form["Cantidad"]),
-                   int.Parse(Request.Form["UnidadMedida"]),
-                   int.Parse(Request.Form["Estado"])
-               );
-
-            await solicitud.Insert();
-
-            return RedirectToAction("SelectShow");
+            try
+            {
+                CSolicitud solicitud = new CSolicitud(null, int.Parse(Request.Form["Empleado"]), Request.Form["Fecha"].ToString().Replace("/", "").Replace("-", ""), int.Parse(Request.Form["Articulo"]), int.Parse(Request.Form["Cantidad"]), int.Parse(Request.Form["UnidadMedida"]), int.Parse(Request.Form["Estado"]));
+                await solicitud.Insert();
+                return RedirectToAction("SelectShow");
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message; return Redirect("ErrorView");
+            }
         }
 
         public async Task<ActionResult> SelectShow()
         {
-            lista = await CSolicitud.Select(query);
-            return View(lista);
+            try
+            {
+                lista = await CSolicitud.Select(query);
+                return View(lista);
+            }
+            catch (Exception e)
+            { 
+                errorMessage = e.Message;
+                return Redirect("ErrorView"); 
+            }
         }
-
         public ActionResult SelectShowSearch()
         {
-            string query = " WHERE ";
-            query += Request.Form["Columnas"].ToString() + " ";
-            query += Request.Form["Operadores"].ToString() + " ";
-            query += "'" + Request.Form["Criterio"].ToString() + "';";
-            SolicitudController.query = query;
-            return RedirectToAction("SelectShow");
+            try
+            {
+                string query = " WHERE ";
+                query += Request.Form["Columnas"].ToString() + " ";
+                query += Request.Form["Operadores"].ToString() + " ";
+                query += "'" + Request.Form["Criterio"].ToString() + "';";
+                SolicitudController.query = query;
+                return RedirectToAction("SelectShow");
+            }
+            catch (Exception e) 
+            { 
+                errorMessage = e.Message;
+                return Redirect("ErrorView"); 
+            }
         }
     }
 }

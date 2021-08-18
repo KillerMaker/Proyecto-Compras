@@ -41,6 +41,11 @@ namespace WebApplication4.Controllers
             return Redirect("https://localhost:44368/Marca/SelectShow");
         }
 
+        public ActionResult ErrorView()
+        {
+            throw new NotImplementedException();
+        }
+
         public ActionResult Exportar(IEnumerable<CEntidad> entidades)
         {
             Excel e = new Excel();

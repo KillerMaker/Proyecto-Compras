@@ -11,6 +11,7 @@ namespace WebApplication4.Controllers
     {
         private static string query;
         private static List<CEmpleado> lista;
+        private static string error="";
 
         public ActionResult InsertarOpen() => View();
         public async Task<ActionResult>InsertarSend()
@@ -33,16 +34,21 @@ namespace WebApplication4.Controllers
         }
         public async Task<ActionResult>ActualizarSend(int id)
         {
-            CEmpleado empleado = new CEmpleado(
-                //int.Parse(Request.Form["id"].ToString()),
-                id,
-                Request.Form["Cedula"].ToString(),
-                Request.Form["Nombre"].ToString(),
-                int.Parse(Request.Form["Departamento"].ToString()),
-                int.Parse(Request.Form["Estado"].ToString()));
+            if (Request.Form["Cedula"].ToString().validaCedula())
+            {
+                CEmpleado empleado = new CEmpleado(
+               //int.Parse(Request.Form["id"].ToString()),
+               id,
+               Request.Form["Cedula"].ToString(),
+               Request.Form["Nombre"].ToString(),
+               int.Parse(Request.Form["Departamento"].ToString()),
+               int.Parse(Request.Form["Estado"].ToString()));
 
-            await empleado.Update();
-            return Redirect("https://localhost:44368/Empleado/SelectShow");
+                await empleado.Update();
+                return Redirect("https://localhost:44368/Empleado/SelectShow");
+            }
+
+            return Redirect("https://localhost:44368/Empleado/ErrorView");
         }
 
         public async Task<ActionResult> EliminarOpen(int id) 
@@ -80,6 +86,11 @@ namespace WebApplication4.Controllers
             Excel e = new Excel();
             e.Write(lista);
             return Redirect("https://localhost:44368/Empleado/SelectShow");
+        }
+
+        public ActionResult ErrorView()
+        {
+            throw new NotImplementedException();
         }
     }
 }
