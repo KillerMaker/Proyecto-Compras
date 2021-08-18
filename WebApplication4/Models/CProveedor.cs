@@ -93,5 +93,13 @@ namespace WebApplication4.Models
             return parameteros;
 
         }
+
+        public override IEnumerator<KeyValuePair<string, object>> GetEnumerator()
+        {
+            yield return new KeyValuePair<string, object>("ID", id);
+            yield return new KeyValuePair<string, object>("Cedula", cedula);
+            yield return new KeyValuePair<string, object>("Nombre Comercial", nombreComercial);
+            yield return new KeyValuePair<string, object>("Estado", nombreEstado);
+        }
     }
 }

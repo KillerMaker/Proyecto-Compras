@@ -10,6 +10,7 @@ namespace WebApplication4.Controllers
     public class MarcaController : Controller,IController
     {
         private static string query;
+        private static List<CMarca> lista;
         public ActionResult ActualizarOpen(int id)
         {
             ViewData["id"] = id;
@@ -42,7 +43,9 @@ namespace WebApplication4.Controllers
 
         public ActionResult Exportar(IEnumerable<CEntidad> entidades)
         {
-            throw new NotImplementedException();
+            Excel e = new Excel();
+            e.Write(lista);
+            return Redirect("https://localhost:44368/Marca/SelectShow");
         }
 
         public ActionResult InsertarOpen() => View();
@@ -54,7 +57,11 @@ namespace WebApplication4.Controllers
             return Redirect("https://localhost:44368/Marca/SelectShow");
         }
 
-        public async Task<ActionResult> SelectShow() => View(await CMarca.Select(query));
+        public async Task<ActionResult> SelectShow()
+        {
+            lista = await CMarca.Select(query);
+            return View(lista);
+        }
         public ActionResult SelectShowSearch()
         {
             string query = " WHERE ";

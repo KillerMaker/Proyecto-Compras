@@ -7,7 +7,7 @@ using System.Data;
 
 namespace WebApplication4.Models
 {
-    public class CDepartamento : CEntidad,IEnumerable<KeyValuePair<string,object>>
+    public class CDepartamento : CEntidad
     {
         //Atributos de constructor
         public int? id { get; set; }
@@ -81,6 +81,13 @@ namespace WebApplication4.Models
 
             return parametros;
 
+        }
+
+        public override IEnumerator<KeyValuePair<string,object>>GetEnumerator()
+        {
+            yield return new KeyValuePair<string, object>("ID", id);
+            yield return new KeyValuePair<string, object>("Nombre", nombre);
+            yield return new KeyValuePair<string, object>("Estado",nombreEstado);
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace WebApplication4.Models
 {
-    public class CArticulo : CEntidad,IEnumerable<KeyValuePair<string,object>>
+    public class CArticulo : CEntidad
     {
         //atributos de constructor
         public int? id { get; set; }
@@ -135,6 +135,7 @@ namespace WebApplication4.Models
             yield return new KeyValuePair<string, object>("Existencia", existencia);
             yield return new KeyValuePair<string, object>("Estado", nombreEstado);
         }
+
 
     }
 }

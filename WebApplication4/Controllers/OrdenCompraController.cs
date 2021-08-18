@@ -10,6 +10,7 @@ namespace WebApplication4.Controllers
     public class OrdenCompraController : Controller,IController
     {
         private static string query;
+        private static List<COrdenCompra> lista;
         public ActionResult ActualizarOpen(int id)
         {
             ViewData["id"] = id;
@@ -56,7 +57,9 @@ namespace WebApplication4.Controllers
 
         public ActionResult Exportar(IEnumerable<CEntidad> entidades)
         {
-            throw new NotImplementedException();
+            Excel e = new Excel();
+            e.Write(lista);
+            return Redirect("https://localhost:44368/OrdenCompra/SelectShow");
         }
 
         public ActionResult InsertarOpen() => View();
@@ -81,7 +84,11 @@ namespace WebApplication4.Controllers
             return RedirectToAction("SelectShow");
         }
 
-        public async Task<ActionResult> SelectShow() => View(await COrdenCompra.Select(query));
+        public async Task<ActionResult> SelectShow()
+        {
+            lista = await COrdenCompra.Select(query);
+            return View(lista);
+        }
         public ActionResult SelectShowSearch()
         {
             string query = " WHERE ";

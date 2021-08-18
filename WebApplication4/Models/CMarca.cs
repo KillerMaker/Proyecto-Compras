@@ -73,7 +73,6 @@ namespace WebApplication4.Models
             MySqlParameter SqlDescripcion = new MySqlParameter("@DESCRIPCION", MySqlDbType.VarChar, 200);
             MySqlParameter SqlEstado = new MySqlParameter("@ESTADO", MySqlDbType.Int32);
 
-
             SqlDescripcion.Value = descripcion;
             SqlEstado.Value = estado;
 
@@ -87,6 +86,13 @@ namespace WebApplication4.Models
 
             return parametros;
 
+        }
+
+        public override IEnumerator<KeyValuePair<string, object>> GetEnumerator()
+        {
+            yield return new KeyValuePair<string, object>("ID", id);
+            yield return new KeyValuePair<string, object>("Descripcion", descripcion);
+            yield return new KeyValuePair<string, object>("Estado", nombreEstado);
         }
     }
 }

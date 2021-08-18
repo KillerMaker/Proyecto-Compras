@@ -10,6 +10,7 @@ namespace WebApplication4.Controllers
     public class ProveedorController : Controller,IController
     {
         private static string query;
+        private static List<CProveedor> lista;
         public ActionResult InsertarOpen() => View();
         public async Task<ActionResult> InsertarSend()
         {
@@ -55,7 +56,11 @@ namespace WebApplication4.Controllers
             await CProveedor.Delete(id);
             return Redirect("https://localhost:44368/Proveedor/SelectShow");
         }
-        public async Task<ActionResult> SelectShow() => View(await CProveedor.Select(query));
+        public async Task<ActionResult> SelectShow()
+        {
+            lista = await CProveedor.Select(query);
+            return View(lista);
+        }
 
         public ActionResult SelectShowSearch()
         {
@@ -69,7 +74,9 @@ namespace WebApplication4.Controllers
 
         public ActionResult Exportar(IEnumerable<CEntidad> entidades)
         {
-            throw new NotImplementedException();
+            Excel e = new Excel();
+            e.Write(lista);
+            return Redirect("https://localhost:44368/Proveedor/SelectShow");
         }
     }
 }

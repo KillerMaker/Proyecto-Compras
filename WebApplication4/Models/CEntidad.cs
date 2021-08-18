@@ -61,7 +61,7 @@ namespace WebApplication4.Models
 
         public virtual IEnumerator<KeyValuePair<string, object>> GetEnumerator()
         {
-           return GetEnumerator();
+            throw new NotImplementedException();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

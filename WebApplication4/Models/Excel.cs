@@ -9,46 +9,63 @@ namespace WebApplication4.Models
 {
     public class Excel
     {
-        string ruta="";
-        _Application excel = new _Excel.Application();
-        Workbook wb;
-        Worksheet ws;
+        private readonly string nombre = "";
+        private readonly _Application excel = new _Excel.Application();
+        private Workbook wb;
+        private Worksheet ws;
         public Excel(string nombre= "report")
         {
-            ruta = "C:\\Users\\emman\\OneDrive\\Escritorio\\Reportes\\"+ nombre+" "+DateTime.Now.ToString();
-            //wb = excel.Workbooks.Open(ruta);
-            //ws = wb.Worksheets[hoja];
-
+            this.nombre = nombre + " " + DateTime.Now.ToString().Replace(":", "_").Replace("\\","-").Replace("/","-");
             wb = excel.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
-            ws = wb.Worksheets[1];
+
+            try
+            {
+                wb.SaveAs(this.nombre);
+                wb.Close();
+            }
+            catch(Exception e)
+            {
+                wb.Close();
+                throw new Exception(e.Message);
+            }
         }
         public void Write(IEnumerable<CEntidad>entidades)
         {
-            int i=1;
-            int j = 1;
+            wb = excel.Workbooks.Open(nombre);
 
-            foreach(var columna in entidades.ToArray()[0])
+            try
             {
-                ws.Cells[i, j].Value2 = columna.Key;
-                j++;
-            }
+                ws = wb.Worksheets[1];
+                int i = 1;
+                int j = 1;
 
-            i = 2;
-            j = 1;
-
-            foreach(var entidad in entidades)
-            {
-                foreach(var columna in entidad)
+                foreach (var columna in entidades.ToArray()[0])
                 {
-                    ws.Cells[i, j].Value2 = columna.Value.ToString();
+                    ws.Cells[i, j].Value2 = columna.Key;
                     j++;
                 }
-                i++;
-            }
 
-            wb.SaveAs(ruta);
-                
-           
+                i = 2;
+                j = 1;
+
+                foreach (var entidad in entidades)
+                {
+                    foreach (var columna in entidad)
+                    {
+                        ws.Cells[i, j].Value2 = columna.Value.ToString();
+                        j++;
+                    }
+                    j = 1;
+                    i++;
+                }
+                wb.Save();
+                wb.Close();
+            }
+            catch (Exception e)
+            {
+                wb.Close();
+                throw new Exception(e.Message);
+            }
         }
     }
 }

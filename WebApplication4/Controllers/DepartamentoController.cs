@@ -79,7 +79,7 @@ namespace WebApplication4.Controllers
         {
             Excel e = new Excel();
             e.Write(lista);
-            return Redirect("https://localhost:44368/Articulo/SelectShow");
+            return Redirect("https://localhost:44368/Departamento/SelectShow");
         }
     }
 }

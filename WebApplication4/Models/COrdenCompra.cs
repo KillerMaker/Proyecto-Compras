@@ -117,5 +117,18 @@ namespace WebApplication4.Models
 
             return parameteros;
         }
+
+        public override IEnumerator<KeyValuePair<string, object>> GetEnumerator()
+        {
+            yield return new KeyValuePair<string, object>("ID", id);
+            yield return new KeyValuePair<string, object>("Solicitud", solicitud);
+            yield return new KeyValuePair<string, object>("Fecha", fecha);
+            yield return new KeyValuePair<string, object>("Articulo", NombreArticulo);
+            yield return new KeyValuePair<string, object>("Cantidad", cantidad);
+            yield return new KeyValuePair<string, object>("Unidad de Medida", NombreUnidadMedida);
+            yield return new KeyValuePair<string, object>("Marca", nombreMarca);
+            yield return new KeyValuePair<string, object>("Costo unitario", costoUnitario);
+            yield return new KeyValuePair<string, object>("Estado", nombreEstado);
+        }
     }
 }

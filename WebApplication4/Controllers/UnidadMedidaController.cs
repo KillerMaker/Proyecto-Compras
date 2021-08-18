@@ -10,6 +10,7 @@ namespace WebApplication4.Controllers
     public class UnidadMedidaController : Controller, IController
     {
         private static string query;
+        private static List<CUnidadMedida> lista;
         public ActionResult ActualizarOpen(int id)
         {
             ViewData["id"] = id;
@@ -42,7 +43,9 @@ namespace WebApplication4.Controllers
 
         public ActionResult Exportar(IEnumerable<CEntidad> entidades)
         {
-            throw new NotImplementedException();
+            Excel e = new Excel();
+            e.Write(lista);
+            return Redirect("https://localhost:44368/UnidadMedida/SelectShow");
         }
 
         public ActionResult InsertarOpen() => View();
@@ -54,7 +57,11 @@ namespace WebApplication4.Controllers
             return Redirect("https://localhost:44368/UnidadMedida/SelectShow");
         }
 
-        public async Task<ActionResult> SelectShow() => View(await CUnidadMedida.Select(query));
+        public async Task<ActionResult> SelectShow()
+        {
+            lista = await CUnidadMedida.Select(query);
+            return View(lista);
+        }
 
         public ActionResult SelectShowSearch()
         {

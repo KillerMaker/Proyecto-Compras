@@ -10,6 +10,7 @@ namespace WebApplication4.Controllers
     public class SolicitudController : Controller,IController
     {
         private static string query;
+        private static List<CSolicitud> lista;
         public ActionResult ActualizarOpen(int id)
         {
             ViewData["id"] = id;
@@ -55,7 +56,9 @@ namespace WebApplication4.Controllers
 
         public ActionResult Exportar(IEnumerable<CEntidad> entidades)
         {
-            throw new NotImplementedException();
+            Excel e = new Excel();
+            e.Write(lista);
+            return Redirect("https://localhost:44368/Solicitud/SelectShow");
         }
 
         public ActionResult InsertarOpen() => View();
@@ -78,7 +81,11 @@ namespace WebApplication4.Controllers
             return RedirectToAction("SelectShow");
         }
 
-        public async Task<ActionResult> SelectShow() => View(await CSolicitud.Select(query));
+        public async Task<ActionResult> SelectShow()
+        {
+            lista = await CSolicitud.Select(query);
+            return View(lista);
+        }
 
         public ActionResult SelectShowSearch()
         {
